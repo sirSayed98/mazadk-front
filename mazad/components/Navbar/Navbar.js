@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
+import Link from "next/link";
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -19,15 +20,25 @@ const Navbar = () => {
     <>
       <div className={`${style.nav_container}`}>
         <div className={`${style.logo_box}`}>
-          <span> MAZADK</span>
+          <span>
+            <Link as={`/`} href={`/`}>
+              MAZADK
+            </Link>
+          </span>
         </div>
 
         <div className={`${style.buttons_box}`}>
           <button className={`${style.register_button} btn btn_master`}>
-            Register
+            {" "}
+            <Link as={`/Register`} href={`/Register`}>
+              Register
+            </Link>{" "}
           </button>
           <button className={`${style.login_button} btn btn_master`}>
-            Login
+            {" "}
+            <Link as={`/login`} href={`/Login`}>
+              LOGIN
+            </Link>{" "}
           </button>
         </div>
 
@@ -36,7 +47,7 @@ const Navbar = () => {
             aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={handleClick}
-            style={{ color: "white"}}
+            style={{ color: "white" }}
             className="btn"
             startIcon={<MenuIcon style={{ color: "white", fontSize: 35 }} />}
           ></Button>
@@ -48,8 +59,18 @@ const Navbar = () => {
             onClose={handleClose}
           >
             <div>
-              <MenuItem onClick={handleClose}>REGISTER</MenuItem>
-              <MenuItem onClick={handleClose}>LOGIN</MenuItem>
+              <MenuItem onClick={handleClose}>
+                {" "}
+                <Link as={`/Register`} href={`/Register`}>
+                  Register
+                </Link>{" "}
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <Link as={`/login`} href={`/Login`}>
+                  LOGIN
+                </Link>
+              </MenuItem>
             </div>
           </Menu>
         </div>
