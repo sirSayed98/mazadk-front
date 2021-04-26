@@ -1,0 +1,64 @@
+.nav_container {
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  background-color: var(--color1);
+}
+.logo_box > img {
+  height: 50px;
+}
+.logo_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  color: var(--color2);
+  letter-spacing: 5px;
+  font-size: 30px;
+  font-weight: 500;
+}
+.buttons_box {
+  display: flex;
+  width: 30%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.register_button {
+  background-color: var(--color1);
+  color: var(--color2);
+  border: var(--color2) 2px solid;
+}
+.register_button:hover {
+  color: var(--color1);
+  background-color: var(--color2);
+}
+
+.login_button {
+  background-color: var(--color2);
+  color: var(--color1);
+  border: var(--color1) 2px solid;
+}
+.login_button:hover {
+  background-color: var(--color1);
+  color: var(--color2);
+  border: var(--color2) 2px solid;
+}
+.burger_menu {
+  display: none;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 840px) {
+  .burger_menu {
+    display: contents;
+  }
+  .buttons_box {
+    display: none;
+  }
+  .logo_box {
+    width: 40%;
+    letter-spacing: 3px;
+    font-size: 26px;
+  }
+}
