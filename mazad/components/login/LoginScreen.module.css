@@ -1,11 +1,7 @@
 .login_form {
-  position: relative;
+  display: flex;
+  justify-content: center;
   height: 100vh;
-}
-.login_form_container {
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%, -50%);
+  margin-top: 40px;
   text-align: center;
 }
