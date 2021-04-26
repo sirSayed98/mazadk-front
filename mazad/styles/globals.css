@@ -12,8 +12,10 @@ body {
   text-transform: uppercase;
 }
 :root {
-  --color1: #090922;
-  --color2: white;
+  --color1: #1E242D;
+  --color2:yellow;
+  --color3:#FF5C5C;
+  --color4:#1F252E;
 }
 a {
   text-decoration: none;

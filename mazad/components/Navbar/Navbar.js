@@ -36,7 +36,7 @@ const Navbar = () => {
           </button>
           <button className={`${style.login_button} btn btn_master`}>
             {" "}
-            <Link as={`/login`} href={`/Login`}>
+            <Link as={`/Login`} href={`/Login`}>
               LOGIN
             </Link>{" "}
           </button>
@@ -67,7 +67,7 @@ const Navbar = () => {
               </MenuItem>
 
               <MenuItem onClick={handleClose}>
-                <Link as={`/login`} href={`/Login`}>
+                <Link as={`/Login`} href={`/Login`}>
                   LOGIN
                 </Link>
               </MenuItem>
