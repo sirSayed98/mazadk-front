@@ -20,7 +20,7 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
-} from "../constants/userConstants/types";
+} from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {

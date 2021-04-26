@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Cookies from "js-cookie";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -9,12 +9,12 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_DETAILS_RESET,
-} from "../constants/userConstants/types";
+} from "../constants/userCosntants/types";
 
 import {
   USER_LOGIN,
   USER_REGISTER,
-} from "../constants/userConstants/endPoints";
+} from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -35,8 +35,8 @@ export const login = (email, password) => async (dispatch) => {
       payload: data.user,
     });
 
-    localStorage.setItem("userInfo", JSON.stringify(data.user));
-    localStorage.setItem("token", data.token);
+    Cookies.set("userInfo",JSON.stringify(data.user));
+    Cookies.set("token", data.token);
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,

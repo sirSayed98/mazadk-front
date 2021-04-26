@@ -5,8 +5,13 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,20 +32,22 @@ const Navbar = () => {
           </span>
         </div>
 
-        <div className={`${style.buttons_box}`}>
-          <button className={`${style.register_button} btn btn_master`}>
-            {" "}
-            <Link as={`/Register`} href={`/Register`}>
-              Register
-            </Link>{" "}
-          </button>
-          <button className={`${style.login_button} btn btn_master`}>
-            {" "}
-            <Link as={`/Login`} href={`/Login`}>
-              LOGIN
-            </Link>{" "}
-          </button>
-        </div>
+        {Cookies.get("userInfo") && (
+          <div className={`${style.buttons_box}`}>
+            <button className={`${style.register_button} btn btn_master`}>
+              {" "}
+              <Link as={`/Register`} href={`/Register`}>
+                Register
+              </Link>{" "}
+            </button>
+            <button className={`${style.login_button} btn btn_master`}>
+              {" "}
+              <Link as={`/Login`} href={`/Login`}>
+                LOGIN
+              </Link>{" "}
+            </button>
+          </div>
+        )}
 
         <div className={`${style.burger_menu}`}>
           <Button
