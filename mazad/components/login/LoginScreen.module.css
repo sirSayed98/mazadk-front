@@ -9,10 +9,3 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-.login_button {
-  background-color: var(--color1);
-  color: var(--color2);
-  font-size: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
-}

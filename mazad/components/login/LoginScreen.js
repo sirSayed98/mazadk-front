@@ -23,7 +23,7 @@ const LoginScreen = () => {
             variant="outlined"
             className="mt-3"
           />
-          <button className={`${style.login_button} btn btn-lg btn-block mt-5`}>
+          <button className={`master_button btn btn-lg btn-block mt-5`}>
             Login
           </button>
         </form>

@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--color5);
 }
 .btn_master {
   padding: 10px 25px;
@@ -12,10 +13,11 @@ body {
   text-transform: uppercase;
 }
 :root {
-  --color1: #1E242D;
-  --color2:yellow;
-  --color3:#FF5C5C;
-  --color4:#1F252E;
+  --color1: #1e242d;
+  --color2: yellow;
+  --color3: #ff5c5c;
+  --color4: #1f252e;
+  --color5: #fbf8f6;
 }
 a {
   text-decoration: none;
@@ -24,4 +26,11 @@ a {
 a:hover {
   text-decoration: none;
   color: inherit;
+}
+.master_button {
+  background-color: var(--color1);
+  color: var(--color2);
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
