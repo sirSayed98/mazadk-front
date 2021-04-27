@@ -1,8 +1,10 @@
 import React from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,6 +14,10 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
+
+import { logout } from "../../Redux/actions/userAction";
+
+import Link from "next/link";
 
 const useStyles = makeStyles({
   list: {
@@ -48,6 +54,32 @@ export default function TemporaryDrawer() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+      {!userInfo && (
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Link as={`/Register`} href={`/Register`}>
+                Register
+              </Link>
+            </ListItemText>
+          </ListItem>
+
+          <ListItem button>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Link as={`/Login`} href={`/Login`}>
+                Login
+              </Link>
+            </ListItemText>
+          </ListItem>
+        </List>
+      )}
+      <Divider />
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
@@ -69,8 +101,26 @@ export default function TemporaryDrawer() {
           </ListItem>
         ))}
       </List>
+      <Divider />
+      {userInfo && (
+        <List onClick={handleLogout}>
+          <ListItem button>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+          </ListItem>
+        </List>
+      )}
     </div>
   );
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <div style={{ float: "right" }}>
@@ -82,7 +132,7 @@ export default function TemporaryDrawer() {
             aria-haspopup="true"
             onClick={toggleDrawer(anchor, true)}
           >
-            <MoreVertIcon />
+            <MoreVertIcon style={{ color: "white" }} />
           </IconButton>
 
           <Drawer

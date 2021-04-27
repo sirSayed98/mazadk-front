@@ -20,7 +20,7 @@
 .buttons_box {
   display: flex;
   width: 30%;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -47,11 +47,13 @@
 .burger_menu {
   display: none;
   overflow: hidden;
+  align-items: center;
 }
 
 @media only screen and (max-width: 840px) {
   .burger_menu {
-    display: contents;
+    display: flex;
+    align-items: center;
   }
   .buttons_box {
     display: none;
