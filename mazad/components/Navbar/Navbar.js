@@ -1,18 +1,21 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
+
+import { logout } from "../../Redux/actions/userAction";
+
 import style from "./Navbar.module.css";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../Redux/actions/userAction";
+
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,7 +40,7 @@ const Navbar = () => {
           </span>
         </div>
 
-        {!userLogin.userInfo && (
+        {!userInfo && (
           <div className={`${style.buttons_box}`}>
             <button className={`${style.register_button} btn btn_master`}>
               {" "}
@@ -53,7 +56,7 @@ const Navbar = () => {
             </button>
           </div>
         )}
-        {userLogin.userInfo && (
+        {userInfo && (
           <div className={`${style.buttons_box}`}>
             <button
               onClick={handleLogout}
@@ -80,7 +83,7 @@ const Navbar = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            {!userLogin.userInfo && (
+            {!userInfo && (
               <div>
                 <MenuItem onClick={handleClose}>
                   {" "}
@@ -97,7 +100,7 @@ const Navbar = () => {
               </div>
             )}
 
-            {userLogin.userInfo && (
+            {userInfo && (
               <div>
                 <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
               </div>

@@ -1,6 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState} from "react";
 import PropTypes from "prop-types";
+
 import SwipeableViews from "react-swipeable-views";
+
+import islogged from "../utils/CheckLogin";
+
+import UserForm from "./UserForm";
+import MerchantForm from "./MerchantForm";
+
 import { useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -8,14 +15,13 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import style from "./RegisterScreen.module.css";
-import UserForm from "./UserForm";
-import MerchantForm from "./MerchantForm";
-import islogged from "../utils/CheckLogin";
+
 
 
 export default function RegisterScreen() {
+  const [value, setValue] = useState(0);
+  
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -24,7 +30,6 @@ export default function RegisterScreen() {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  islogged();
 
   return (
     <>

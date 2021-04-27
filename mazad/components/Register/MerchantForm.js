@@ -1,6 +1,7 @@
 import React from 'react'
-import TextField from "@material-ui/core/TextField";
 import Link from "next/link";
+import TextField from "@material-ui/core/TextField";
+
 const MerchantForm = () => {
     return (
         <>
