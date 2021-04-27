@@ -1,0 +1,15 @@
+.card_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-top: 4%;
+}
+.card_body {
+  background-color: white;
+  border-radius: 16px;
+  padding: 30px 4px;
+}
+.newLine {
+  border-top: 1px dashed var(--color1);
+}
