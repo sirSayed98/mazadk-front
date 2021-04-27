@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
-import style from "./Navbar.module.css";
+import { logout } from "../../Redux/actions/userAction";
 
+import style from "./Navbar.module.css";
 import SideMenu from "../SideMenu/SideMenu";
 const Navbar = () => {
   const userLogin = useSelector((state) => state.userLogin);

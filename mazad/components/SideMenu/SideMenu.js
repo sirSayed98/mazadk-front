@@ -14,6 +14,9 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 import { logout } from "../../Redux/actions/userAction";
 
@@ -58,7 +61,7 @@ export default function TemporaryDrawer() {
         <List>
           <ListItem button>
             <ListItemIcon>
-              <InboxIcon />
+              <AddCircleOutlineIcon />
             </ListItemIcon>
             <ListItemText>
               <Link as={`/Register`} href={`/Register`}>
@@ -69,7 +72,7 @@ export default function TemporaryDrawer() {
 
           <ListItem button>
             <ListItemIcon>
-              <InboxIcon />
+              <ExitToAppIcon />
             </ListItemIcon>
             <ListItemText>
               <Link as={`/Login`} href={`/Login`}>
@@ -106,7 +109,7 @@ export default function TemporaryDrawer() {
         <List onClick={handleLogout}>
           <ListItem button>
             <ListItemIcon>
-              <InboxIcon />
+              <MeetingRoomIcon />
             </ListItemIcon>
             <ListItemText>Logout</ListItemText>
           </ListItem>
