@@ -10,6 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
 
+import SideMenu from "../SideMenu/SideMenu";
 const Navbar = () => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -57,14 +58,17 @@ const Navbar = () => {
           </div>
         )}
         {userInfo && (
-          <div className={`${style.buttons_box}`}>
-            <button
-              onClick={handleLogout}
-              className={`${style.login_button} btn btn_master`}
-            >
-              LOGOUT
-            </button>
-          </div>
+          <>
+            <div className={`${style.buttons_box}`}>
+              <button
+                onClick={handleLogout}
+                className={`${style.login_button} btn btn_master`}
+              >
+                LOGOUT
+              </button>
+              <SideMenu />
+            </div>
+          </>
         )}
 
         <div className={`${style.burger_menu}`}>
