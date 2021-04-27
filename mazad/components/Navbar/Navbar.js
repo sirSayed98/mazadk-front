@@ -37,7 +37,7 @@ const Navbar = () => {
           </span>
         </div>
 
-        {!userLogin.userInfo  && (
+        {!userLogin.userInfo && (
           <div className={`${style.buttons_box}`}>
             <button className={`${style.register_button} btn btn_master`}>
               {" "}
@@ -50,6 +50,16 @@ const Navbar = () => {
               <Link as={`/Login`} href={`/Login`}>
                 LOGIN
               </Link>{" "}
+            </button>
+          </div>
+        )}
+        {userLogin.userInfo && (
+          <div className={`${style.buttons_box}`}>
+            <button
+              onClick={handleLogout}
+              className={`${style.login_button} btn btn_master`}
+            >
+              LOGOUT
             </button>
           </div>
         )}
