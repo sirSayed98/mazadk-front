@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { Register } from "../../Redux/actions/userAction";
 
 import {
   Check,
@@ -14,6 +15,9 @@ import TextField from "@material-ui/core/TextField";
 const UserForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo, success } = userRegister;
 
   const [data, setData] = useState({
     name: "",
@@ -38,6 +42,7 @@ const UserForm = () => {
       setConfirmPasswordErr("Password and Confirm Password must be matched");
     } else {
       console.log(data);
+      dispatch(Register(data));
     }
   };
 
@@ -59,6 +64,15 @@ const UserForm = () => {
       setData({ ...data, [e.target.name]: e.target.value });
     }
   };
+
+  useEffect(() => {
+    if (error !== false && error !== undefined) {
+      alert(error);
+    } else if (success) {
+      alert("done");
+      router.push("/confirmEmail");
+    }
+  }, [error, success]);
 
   return (
     <>
