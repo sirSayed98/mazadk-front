@@ -35,7 +35,7 @@ export const login = (email, password) => async (dispatch) => {
       payload: data.user,
     });
 
-    Cookies.set("userInfo",JSON.stringify(data.user));
+    Cookies.set("userInfo", JSON.stringify(data.user));
     Cookies.set("token", data.token);
   } catch (error) {
     dispatch({
@@ -48,10 +48,11 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("userInfo");
+  Cookies.remove("userInfo");
+  Cookies.remove("token");
 
   dispatch({ type: USER_LOGOUT });
-  dispatch({ type: USER_DETAILS_RESET });
+  //dispatch({ type: USER_DETAILS_RESET });
 };
 export const register = (name, email, password) => async (dispatch) => {
   try {

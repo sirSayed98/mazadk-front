@@ -6,10 +6,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
+import { logout } from "../../Redux/actions/userAction";
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
@@ -19,6 +20,10 @@ const Navbar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    handleClose();
+    dispatch(logout());
   };
 
   return (
@@ -32,7 +37,7 @@ const Navbar = () => {
           </span>
         </div>
 
-        {Cookies.get("userInfo") && (
+        {!userLogin.userInfo  && (
           <div className={`${style.buttons_box}`}>
             <button className={`${style.register_button} btn btn_master`}>
               {" "}
@@ -65,20 +70,28 @@ const Navbar = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <div>
-              <MenuItem onClick={handleClose}>
-                {" "}
-                <Link as={`/Register`} href={`/Register`}>
-                  Register
-                </Link>{" "}
-              </MenuItem>
+            {!userLogin.userInfo && (
+              <div>
+                <MenuItem onClick={handleClose}>
+                  {" "}
+                  <Link as={`/Register`} href={`/Register`}>
+                    Register
+                  </Link>{" "}
+                </MenuItem>
 
-              <MenuItem onClick={handleClose}>
-                <Link as={`/Login`} href={`/Login`}>
-                  LOGIN
-                </Link>
-              </MenuItem>
-            </div>
+                <MenuItem onClick={handleClose}>
+                  <Link as={`/Login`} href={`/Login`}>
+                    LOGIN
+                  </Link>
+                </MenuItem>
+              </div>
+            )}
+
+            {userLogin.userInfo && (
+              <div>
+                <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
+              </div>
+            )}
           </Menu>
         </div>
       </div>
