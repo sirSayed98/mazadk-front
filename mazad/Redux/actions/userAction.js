@@ -8,12 +8,15 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_DETAILS_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
 } from "../constants/userCosntants/types";
 
 import {
   USER_LOGIN,
   USER_REGISTER,
+  USER_LIST,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -68,16 +71,45 @@ export const Register = (data) => async (dispatch) => {
 
     const res = await axios.post(USER_REGISTER, data, config);
 
-    console.log(res.data.user)
-    
+    console.log(res.data.user);
+
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: res.data.user,
     });
-
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.response,
+    });
+  }
+};
+
+export const GetUserList = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    
+    const { data } = await axios.get(USER_LIST, config);
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAIL,
       payload:
         error.response && error.response.data.error
           ? error.response.data.error

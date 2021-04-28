@@ -1,12 +1,17 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { userLoginReducer, userRegisterReducer } from "./reducers/userReducer";
+import {
+  userLoginReducer,
+  userRegisterReducer,
+  userListReducer,
+} from "./reducers/userReducer";
 import Cookies from "js-cookie";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  userList: userListReducer,
 });
 
 const userInfoFromStorage = Cookies.get("token")

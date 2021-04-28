@@ -1,6 +1,6 @@
-import React from "react";
-
-
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetUserList } from "../Redux/actions/userAction";
 
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,6 +19,8 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+
+
 const useRowStyles = makeStyles({
   root: {
     "& > *": {
@@ -104,8 +106,16 @@ function Row(props) {
   );
 }
 
-
 export default function CollapsibleTable() {
+  const dispatch = useDispatch();
+
+  const userListData = useSelector((state) => state.userList);
+  const { loading, error, userList, success } = userListData;
+
+  useEffect(() => {
+    dispatch(GetUserList());
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -129,28 +139,27 @@ export default function CollapsibleTable() {
 }
 
 Row.propTypes = {
-    row: PropTypes.shape({
-      calories: PropTypes.number.isRequired,
-      carbs: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      history: PropTypes.arrayOf(
-        PropTypes.shape({
-          amount: PropTypes.number.isRequired,
-          customerId: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        })
-      ).isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      protein: PropTypes.number.isRequired,
-    }).isRequired,
-  };
-  
-  const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-    createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-    createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-    createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
-  ];
-  
+  row: PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbs: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    history: PropTypes.arrayOf(
+      PropTypes.shape({
+        amount: PropTypes.number.isRequired,
+        customerId: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    protein: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+const rows = [
+  createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
+  createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
+  createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
+  createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
+  createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
+];
