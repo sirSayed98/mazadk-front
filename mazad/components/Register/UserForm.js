@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { Register } from "../../Redux/actions/userAction";
-
+import { popUpMessage } from "../utils/sweetAlert";
 import {
   Check,
   ONLY_NUMBER_REG,
@@ -41,7 +41,6 @@ const UserForm = () => {
     if (password !== confirmPassword) {
       setConfirmPasswordErr("Password and Confirm Password must be matched");
     } else {
-      console.log(data);
       dispatch(Register(data));
     }
   };
@@ -67,16 +66,15 @@ const UserForm = () => {
 
   useEffect(() => {
     if (error !== false && error !== undefined) {
-      alert(error);
+      popUpMessage("Error", error, "error");
     } else if (success) {
-      alert("done");
+      popUpMessage("Welcome To Mazadk", "Please verify your mail!", "success");
       router.push("/confirmEmail");
     }
   }, [error, success]);
 
   return (
     <>
-      {/* <button onClick={() => console.log(phoneErr)}>Test </button> */}
       <form onSubmit={onSubmit} className="mt-4">
         <TextField
           label="Name"
@@ -153,7 +151,10 @@ const UserForm = () => {
           helperText={passwordConfirmErr}
         />
 
-        <button className={`master_button btn btn-lg btn-block`}>
+        <button
+          disabled={loading}
+          className={`master_button btn btn-lg btn-block`}
+        >
           Register
         </button>
       </form>

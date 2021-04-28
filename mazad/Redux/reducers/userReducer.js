@@ -20,6 +20,7 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  USER_REGISTER_REST,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -49,6 +50,8 @@ export const userRegisterReducer = (
       return { loading: false, userInfo: action.payload, success: true };
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
+    case USER_REGISTER_REST:
+      return { loading: null, error: null, success: null };
     default:
       return state;
   }

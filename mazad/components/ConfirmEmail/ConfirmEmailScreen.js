@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+
+import { USER_REGISTER_REST } from "../../Redux/constants/userCosntants/types";
 
 import style from "./ConfirmEmailScreen.module.css";
 const ConfirmEmailScreen = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const userRegister = useSelector((state) => state.userRegister);
   const { success } = userRegister;
@@ -13,6 +16,11 @@ const ConfirmEmailScreen = () => {
     if (!success) {
       router.push("/");
     }
+    setTimeout(() => {
+      dispatch({
+        type: USER_REGISTER_REST,
+      });
+    }, 8000);
   }, [success]);
   return (
     <div className={`${style.card_container}`}>
