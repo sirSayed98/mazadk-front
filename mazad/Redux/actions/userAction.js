@@ -11,6 +11,9 @@ import {
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
 } from "../constants/userCosntants/types";
 
 import {
@@ -110,6 +113,39 @@ export const GetUserList = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.response,
+    });
+  }
+};
+
+export const DeleteUser = (id) => async (dispatch) => {
+  console.log("delete is called");
+  try {
+    dispatch({
+      type: DELETE_USER_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    await axios.delete(USER_LIST + `/${id}`, config);
+
+    console.log("____________Delete User_________");
+    dispatch({
+      type: DELETE_USER_SUCCESS,
+    });
+  } catch (error) {
+    console.log("_errror");
+    console.log(error.reponse.data.error);
+    dispatch({
+      type: DELETE_USER_FAIL,
       payload:
         error.response && error.response.data.error
           ? error.response.data.error

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUserList } from "../../Redux/actions/userAction";
+import { GetUserList, DeleteUser } from "../../Redux/actions/userAction";
+
+import { confirmedMessage, popUpMessage } from "../utils/sweetAlert";
 
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,6 +34,27 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
+
+  const dispatch = useDispatch();
+  const userDeletedDone = useSelector((state) => state.userDeleted);
+  const { success, error, loading } = userDeletedDone;
+
+  const handleDelete = (id) => {
+    confirmedMessage().then((result) => {
+      if (result.isConfirmed) {
+        dispatch(DeleteUser(id));
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (success) {
+      popUpMessage("Done", "operation is complete", "success");
+    }
+    if (error) {
+      popUpMessage("Failed", error, "error");
+    }
+  }, [success, error]);
 
   return (
     <React.Fragment>
@@ -74,7 +97,10 @@ function Row(props) {
                     </TableCell>
                     <TableCell align="center">{row.createdAt}</TableCell>
                     <TableCell className="mr-2" align="center">
-                      <DeleteIcon className="mr-2"></DeleteIcon>
+                      <DeleteIcon
+                        onClick={() => handleDelete(row._id)}
+                        className="mr-2"
+                      ></DeleteIcon>
                       <EditIcon></EditIcon>
                     </TableCell>
                   </TableRow>
@@ -100,7 +126,7 @@ export default function CollapsibleTable() {
 
   return (
     <TableContainer component={Paper}>
-      <Table  aria-label="collapsible table">
+      <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
