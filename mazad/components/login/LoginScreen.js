@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import { login } from "../../Redux/actions/userAction";
 import { popUpMessage } from "../utils/sweetAlert";
-import { REST_USER_FLAGS } from "../../Redux/constants/userCosntants/types";
 
 import style from "./LoginScreen.module.css";
 import TextField from "@material-ui/core/TextField";
@@ -31,19 +30,9 @@ const LoginScreen = () => {
     }
     if (success) {
       popUpMessage("Welcome To Mazadk", "Bid Now!", "success");
-      setTimeout(() => {
-        dispatch({
-          type: REST_USER_FLAGS,
-        });
-      }, 3000);
     }
     if (error) {
       popUpMessage("Failed", error, "error");
-      setTimeout(() => {
-        dispatch({
-          type: REST_USER_FLAGS,
-        });
-      }, 3000);
     }
   }, [userInfo, success, error]);
   return (

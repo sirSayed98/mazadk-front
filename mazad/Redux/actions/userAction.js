@@ -100,12 +100,12 @@ export const GetUserList = () => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    
+
     const { data } = await axios.get(USER_LIST, config);
 
     dispatch({
       type: USER_LIST_SUCCESS,
-      payload: data.user,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
