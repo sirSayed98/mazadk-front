@@ -21,6 +21,10 @@ import {
   REMOVE_USER,
   REST_USER_FILTER,
   FILTER_USERS_TYPE,
+  FORGET_PASSWORD_SUCCESS,
+  FORGET_PASSWORD_FAIL,
+  FORGET_PASSWORD_REQUEST,
+  FORGET_PASSWORD_RESET,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -116,6 +120,21 @@ export const userDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case DELETE_USER_FAIL:
       return { loading: false, error: action.payload, success: false };
+    default:
+      return state;
+  }
+};
+
+export const userForgetPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FORGET_PASSWORD_REQUEST:
+      return { loading: true };
+    case FORGET_PASSWORD_SUCCESS:
+      return { loading: false, success: true };
+    case FORGET_PASSWORD_FAIL:
+      return { loading: false, error: action.payload, success: false };
+    case FORGET_PASSWORD_RESET:
+      return {};
     default:
       return state;
   }

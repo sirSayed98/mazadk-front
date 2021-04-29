@@ -68,7 +68,7 @@ const LoginScreen = () => {
           </button>
         </form>
         <div className="mt-3">
-          <Link href={"/Forget_password"}>Forget Password</Link>
+          <Link href={"/forget_password"}>Forget Password</Link>
         </div>
       </div>
     </div>

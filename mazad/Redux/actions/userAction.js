@@ -15,12 +15,16 @@ import {
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
   REMOVE_USER,
+  FORGET_PASSWORD_SUCCESS,
+  FORGET_PASSWORD_FAIL,
+  FORGET_PASSWORD_REQUEST,
 } from "../constants/userCosntants/types";
 
 import {
   USER_LOGIN,
   USER_REGISTER,
   USER_LIST,
+  FORGET_PASSWORD,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -148,6 +152,30 @@ export const DeleteUser = (id) => async (dispatch) => {
     console.log(error.reponse.data.error);
     dispatch({
       type: DELETE_USER_FAIL,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.response,
+    });
+  }
+};
+
+export const ForgetPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: FORGET_PASSWORD_REQUEST,
+    });
+    const res = await axios.post(FORGET_PASSWORD, { email: email });
+
+    console.log(res.data.msg);
+    dispatch({
+      type: FORGET_PASSWORD_SUCCESS,
+    });
+
+  } catch (error) {
+    console.log(error.reponse);
+    dispatch({
+      type: FORGET_PASSWORD_FAIL,
       payload:
         error.response && error.response.data.error
           ? error.response.data.error
