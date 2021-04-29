@@ -9,9 +9,6 @@ import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
-  USER_UPDATE_PROFILE_FAIL,
-  USER_UPDATE_PROFILE_REQUEST,
-  USER_UPDATE_PROFILE_SUCCESS,
   USER_DETAILS_RESET,
   REST_USER_FLAGS,
   USER_LIST_REQUEST,
@@ -21,6 +18,7 @@ import {
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
+  REMOVE_USER,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -80,6 +78,11 @@ export const userListReducer = (state = {}, action) => {
       return { loading: false, userList: action.payload, success: true };
     case USER_LIST_FAIL:
       return { loading: false, error: action.payload, success: false };
+    case REMOVE_USER:
+      return {
+        ...state,
+        userList: state.userList.filter((user) => user._id !== action.payload)
+      };
     default:
       return state;
   }
@@ -90,7 +93,7 @@ export const userDeleteReducer = (state = {}, action) => {
     case DELETE_USER_REQUEST:
       return { loading: true };
     case DELETE_USER_SUCCESS:
-      return { loading: false,  success: true };
+      return { loading: false, success: true };
     case DELETE_USER_FAIL:
       return { loading: false, error: action.payload, success: false };
     default:

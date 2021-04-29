@@ -14,6 +14,7 @@ import {
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
+  REMOVE_USER,
 } from "../constants/userCosntants/types";
 
 import {
@@ -122,7 +123,6 @@ export const GetUserList = () => async (dispatch) => {
 };
 
 export const DeleteUser = (id) => async (dispatch) => {
-  console.log("delete is called");
   try {
     dispatch({
       type: DELETE_USER_REQUEST,
@@ -137,12 +137,14 @@ export const DeleteUser = (id) => async (dispatch) => {
 
     await axios.delete(USER_LIST + `/${id}`, config);
 
-    console.log("____________Delete User_________");
     dispatch({
       type: DELETE_USER_SUCCESS,
     });
+    dispatch({
+      type: REMOVE_USER,
+      payload: id,
+    });
   } catch (error) {
-    console.log("_errror");
     console.log(error.reponse.data.error);
     dispatch({
       type: DELETE_USER_FAIL,
