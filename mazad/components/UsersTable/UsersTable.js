@@ -118,7 +118,7 @@ export default function CollapsibleTable() {
   const dispatch = useDispatch();
 
   const userListData = useSelector((state) => state.userList);
-  const { userList } = userListData;
+  const { userList, userFilterList } = userListData;
 
   useEffect(() => {
     dispatch(GetUserList());
@@ -137,7 +137,13 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {userList && userList.map((row) => <Row key={row.name} row={row} />)}
+          {userList &&
+            userFilterList === undefined &&
+            userList.map((row) => <Row key={row.name} row={row} />)}
+
+          {userFilterList !== undefined &&
+            userFilterList !== null &&
+            userFilterList.map((row) => <Row key={row.name} row={row} />)}
         </TableBody>
       </Table>
     </TableContainer>

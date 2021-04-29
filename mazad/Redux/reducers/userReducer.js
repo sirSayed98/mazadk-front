@@ -19,6 +19,8 @@ import {
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
   REMOVE_USER,
+  REST_USER_FILTER,
+  FILTER_USERS_TYPE,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -70,7 +72,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
   }
 };
 
-export const userListReducer = (state = {}, action) => {
+export const userListReducer = (state = { userFilterList: null }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
       return { loading: true };
@@ -81,7 +83,25 @@ export const userListReducer = (state = {}, action) => {
     case REMOVE_USER:
       return {
         ...state,
-        userList: state.userList.filter((user) => user._id !== action.payload)
+        userList:
+          state.userList &&
+          state.userList.filter((user) => user._id !== action.payload),
+      };
+    case FILTER_USERS_TYPE:
+      var users = [];
+      state.userList.map((user) => {
+        if (user.role === action.payload) {
+          users.push(user);
+        }
+      });
+      return {
+        ...state,
+        userFilterList: users,
+      };
+    case REST_USER_FILTER:
+      return {
+        ...state,
+        userFilterList: undefined,
       };
     default:
       return state;

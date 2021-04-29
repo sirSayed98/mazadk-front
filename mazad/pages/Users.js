@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import UsersTable from "../components/UsersTable/UsersTable";
 import Navbar from "../components/Navbar/Navbar";
+import UsersFilter from "../components/usersFilter/usersFilter";
 
 const Users = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const Users = () => {
         <>
           <Navbar />
           <div className="container">
+            <UsersFilter />
             <div className="col-sm-12 mt-4">
               <UsersTable />
             </div>
