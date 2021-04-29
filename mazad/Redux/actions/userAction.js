@@ -18,6 +18,9 @@ import {
   FORGET_PASSWORD_SUCCESS,
   FORGET_PASSWORD_FAIL,
   FORGET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_REQUEST,
 } from "../constants/userCosntants/types";
 
 import {
@@ -25,6 +28,7 @@ import {
   USER_REGISTER,
   USER_LIST,
   FORGET_PASSWORD,
+  RESET_PASSWORD,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -171,11 +175,36 @@ export const ForgetPassword = (email) => async (dispatch) => {
     dispatch({
       type: FORGET_PASSWORD_SUCCESS,
     });
-
   } catch (error) {
     console.log(error.reponse);
     dispatch({
       type: FORGET_PASSWORD_FAIL,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.response,
+    });
+  }
+};
+
+export const ResetPassword = (token, password) => async (dispatch) => {
+  console.log(password);
+  console.log(token);
+  try {
+    dispatch({
+      type: RESET_PASSWORD_REQUEST,
+    });
+    await axios.put(RESET_PASSWORD + `/${token}`, {
+      password: password,
+    });
+
+    dispatch({
+      type: RESET_PASSWORD_SUCCESS,
+    });
+  } catch (error) {
+    console.log(error.reponse && error.reponse.data);
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
       payload:
         error.response && error.response.data.error
           ? error.response.data.error
