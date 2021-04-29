@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 
 import { logout } from "../../Redux/actions/userAction";
 
@@ -83,18 +84,35 @@ export default function TemporaryDrawer() {
         </List>
       )}
       <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
+
+      {userInfo && userInfo.role === "admin" && (
+        <>
+          <List>
+            <ListItem>
+              <ListItemText
+                className="text-center"
+                primary={"Admin Dashboard"}
+              />
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <PeopleAltIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Link as={`/Users`} href={`/Users`}>
+                  Users
+                </Link>
+              </ListItemText>
+            </ListItem>
+          </List>
+          <Divider />
+        </>
+      )}
+
+      {/* <List>
         {["All mail", "Trash", "Spam"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
@@ -103,7 +121,7 @@ export default function TemporaryDrawer() {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
       <Divider />
       {userInfo && (
         <List onClick={handleLogout}>
@@ -124,7 +142,7 @@ export default function TemporaryDrawer() {
   const handleLogout = () => {
     dispatch(logout());
   };
-
+  //userInfo.role
   return (
     <div style={{ float: "right" }}>
       {["left"].map((anchor) => (

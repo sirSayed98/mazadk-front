@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUserList } from "../Redux/actions/userAction";
+import { GetUserList } from "../../Redux/actions/userAction";
 
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -100,7 +100,7 @@ export default function CollapsibleTable() {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+      <Table  aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
@@ -128,4 +128,3 @@ Row.propTypes = {
     role: PropTypes.string.isRequired,
   }).isRequired,
 };
-
