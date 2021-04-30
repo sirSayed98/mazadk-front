@@ -7,7 +7,8 @@ import {
   userListReducer,
   userDeleteReducer,
   userForgetPasswordReducer,
-  userResetPasswordReducer
+  userResetPasswordReducer,
+
 } from "./reducers/userReducer";
 import Cookies from "js-cookie";
 
@@ -17,7 +18,7 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDeleted: userDeleteReducer,
   userForget: userForgetPasswordReducer,
-  userRest:userResetPasswordReducer
+  userRest: userResetPasswordReducer,
 });
 
 const userInfoFromStorage = Cookies.get("token")

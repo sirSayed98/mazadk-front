@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { EditUser } from "../../Redux/actions/userAction";
+
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
 import TextField from "@material-ui/core/TextField";
+import { Modal } from "react-responsive-modal";
 
 const userModal = (props) => {
   const [state, setState] = useState(false);
@@ -12,6 +15,10 @@ const userModal = (props) => {
     address: "",
     email: "",
   });
+
+  const dispatch = useDispatch();
+ 
+
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   useEffect(() => {
@@ -20,6 +27,11 @@ const userModal = (props) => {
       setUser(props.user);
     }
   }, [props.open]);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(EditUser(user, props.user._id));
+  };
 
   return (
     <>
@@ -37,7 +49,7 @@ const userModal = (props) => {
       >
         <>
           <div className="container">
-            <form className="mt-5">
+            <form className="mt-5" onSubmit={onSubmit}>
               <TextField
                 label="Name"
                 fullWidth
@@ -76,6 +88,7 @@ const userModal = (props) => {
               />
               <TextField
                 label="Email"
+                disabled
                 fullWidth
                 required
                 type="email"

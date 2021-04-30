@@ -21,6 +21,9 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
   RESET_PASSWORD_REQUEST,
+  EDIT_USER_REQUEST,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAIL,
 } from "../constants/userCosntants/types";
 
 import {
@@ -29,6 +32,7 @@ import {
   USER_LIST,
   FORGET_PASSWORD,
   RESET_PASSWORD,
+  EDIT_USER,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -164,7 +168,6 @@ export const DeleteUser = (id) => async (dispatch) => {
         });
       });
   });
-
 };
 
 export const ForgetPassword = (email) => async (dispatch) => {
@@ -191,8 +194,6 @@ export const ForgetPassword = (email) => async (dispatch) => {
 };
 
 export const ResetPassword = (token, password) => async (dispatch) => {
-  console.log(password);
-  console.log(token);
   try {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
@@ -208,6 +209,37 @@ export const ResetPassword = (token, password) => async (dispatch) => {
     console.log(error.reponse && error.reponse.data);
     dispatch({
       type: RESET_PASSWORD_FAIL,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.response,
+    });
+  }
+};
+
+export const EditUser = (data, id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    dispatch({
+      type: EDIT_USER_REQUEST,
+    });
+    const res = await axios.put(EDIT_USER + `/${id}`, data, config);
+
+    dispatch({
+      type: EDIT_USER_SUCCESS,
+      payload: res.data.data,
+    });
+
+  } catch (error) {
+    console.log( error);
+    dispatch({
+      type: EDIT_USER_FAIL,
       payload:
         error.response && error.response.data.error
           ? error.response.data.error

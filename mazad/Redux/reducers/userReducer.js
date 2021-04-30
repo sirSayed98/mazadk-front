@@ -29,7 +29,10 @@ import {
   RESET_PASSWORD_FAIL,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_RESET,
-  RESET_DELETE_USER
+  RESET_DELETE_USER,
+  EDIT_USER_REQUEST,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAIL,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -111,6 +114,15 @@ export const userListReducer = (state = { userFilterList: null }, action) => {
       return {
         ...state,
         userFilterList: undefined,
+      };
+    case EDIT_USER_SUCCESS:
+      console.log(state);
+      return {
+        loading: false,
+        success: true,
+        userList: state.userList.map((user) =>
+          user._id === action.payload._id ? action.payload : user
+        ),
       };
     default:
       return state;
