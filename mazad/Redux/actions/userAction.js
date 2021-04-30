@@ -131,37 +131,40 @@ export const GetUserList = () => async (dispatch) => {
 };
 
 export const DeleteUser = (id) => async (dispatch) => {
-  try {
-    dispatch({
-      type: DELETE_USER_REQUEST,
-    });
+  dispatch({
+    type: DELETE_USER_REQUEST,
+  });
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-        "Content-Type": "application/json",
-      },
-    };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(USER_LIST + `/${id}`, config)
+      .then((res) => {
+        resolve("done");
+        dispatch({
+          type: DELETE_USER_SUCCESS,
+        });
+        dispatch({
+          type: REMOVE_USER,
+          payload: id,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: DELETE_USER_FAIL,
+          payload:
+            error.response && error.response.data.error
+              ? error.response.data.error
+              : error.response,
+        });
+      });
+  });
 
-    await axios.delete(USER_LIST + `/${id}`, config);
-
-    dispatch({
-      type: DELETE_USER_SUCCESS,
-    });
-    dispatch({
-      type: REMOVE_USER,
-      payload: id,
-    });
-  } catch (error) {
-    console.log(error.reponse.data.error);
-    dispatch({
-      type: DELETE_USER_FAIL,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.response,
-    });
-  }
 };
 
 export const ForgetPassword = (email) => async (dispatch) => {

@@ -77,7 +77,7 @@ const userModal = (props) => {
               />
 
               <button className={`master_button btn btn-lg btn-block`}>
-                Register
+                Edit
               </button>
             </form>
           </div>

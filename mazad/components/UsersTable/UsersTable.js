@@ -5,6 +5,10 @@ import { GetUserList, DeleteUser } from "../../Redux/actions/userAction";
 import { confirmedMessage, popUpMessage } from "../utils/sweetAlert";
 
 import UserModal from "../../components/UserModal/userModal";
+import {
+  FILTER_USERS_TYPE,
+  RESET_DELETE_USER,
+} from "../../Redux/constants/userCosntants/types";
 
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,10 +46,20 @@ function Row(props) {
   const userDeletedDone = useSelector((state) => state.userDeleted);
   const { success, error, loading } = userDeletedDone;
 
-  const handleDelete = (id) => {
+  const userListData = useSelector((state) => state.userList);
+  const { userFilterList } = userListData;
+
+  const handleDelete = (id, role) => {
     confirmedMessage().then((result) => {
       if (result.isConfirmed) {
-        dispatch(DeleteUser(id));
+        dispatch(DeleteUser(id)).then((el) => {
+          if (userFilterList !== undefined && userFilterList !== null) {
+            dispatch({
+              type: FILTER_USERS_TYPE,
+              payload: role,
+            });
+          }
+        });
       }
     });
   };
@@ -61,6 +75,9 @@ function Row(props) {
     if (error) {
       popUpMessage("Failed", error, "error");
     }
+    dispatch({
+      type: RESET_DELETE_USER,
+    });
   }, [success, error]);
 
   return (
@@ -79,9 +96,9 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.email}
         </TableCell>
-        <TableCell align="right">{row.name}</TableCell>
-        <TableCell align="right">{row.role}</TableCell>
-        <TableCell align="right">{row.phone}</TableCell>
+        {[row.name, row.role, row.phone].map((el) => {
+          return <TableCell align="right">{el}</TableCell>;
+        })}
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -93,9 +110,9 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="center">Address</TableCell>
-                    <TableCell align="center">Created_AT</TableCell>
-                    <TableCell align="center">Options</TableCell>
+                    {["Address", "Created_AT", "Options"].map((el) => {
+                      return <TableCell align="center">{el}</TableCell>;
+                    })}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -106,7 +123,7 @@ function Row(props) {
                     <TableCell align="center">{row.createdAt}</TableCell>
                     <TableCell className="mr-2" align="center">
                       <DeleteIcon
-                        onClick={() => handleDelete(row._id)}
+                        onClick={() => handleDelete(row._id, row.role)}
                         className="mr-2"
                       ></DeleteIcon>
                       <EditIcon onClick={toggleChildMenu}></EditIcon>
@@ -139,10 +156,9 @@ export default function CollapsibleTable() {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Email</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Role</TableCell>
-              <TableCell align="right">Phone</TableCell>
+              {["Email", "Name", "Role", "Phone"].map((el) => {
+                return <TableCell align="center">{el}</TableCell>;
+              })}
             </TableRow>
           </TableHead>
           <TableBody>

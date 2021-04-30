@@ -60,7 +60,7 @@ const forget_password = () => {
                 disabled={loading}
                 className="btn btn-lg master_button"
               >
-                Send Email
+                Reset
               </button>
             </div>
           </div>
