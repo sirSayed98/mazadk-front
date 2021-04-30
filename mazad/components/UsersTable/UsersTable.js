@@ -4,6 +4,8 @@ import { GetUserList, DeleteUser } from "../../Redux/actions/userAction";
 
 import { confirmedMessage, popUpMessage } from "../utils/sweetAlert";
 
+import UserModal from "../../components/UserModal/userModal";
+
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -32,7 +34,8 @@ const useRowStyles = makeStyles({
 
 function Row(props) {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [child, setChild] = useState(false);
   const classes = useRowStyles();
 
   const dispatch = useDispatch();
@@ -47,6 +50,10 @@ function Row(props) {
     });
   };
 
+  const toggleChildMenu = () => {
+    setChild(!child);
+  };
+
   useEffect(() => {
     if (success) {
       popUpMessage("Done", "operation is complete", "success");
@@ -57,7 +64,8 @@ function Row(props) {
   }, [success, error]);
 
   return (
-    <React.Fragment>
+    <>
+      <UserModal open={child} />
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton
@@ -101,7 +109,7 @@ function Row(props) {
                         onClick={() => handleDelete(row._id)}
                         className="mr-2"
                       ></DeleteIcon>
-                      <EditIcon></EditIcon>
+                      <EditIcon onClick={toggleChildMenu}></EditIcon>
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -110,7 +118,7 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
 }
 
@@ -125,28 +133,30 @@ export default function CollapsibleTable() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Email</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Role</TableCell>
-            <TableCell align="right">Phone</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {userList &&
-            userFilterList === undefined &&
-            userList.map((row) => <Row key={row.name} row={row} />)}
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>Email</TableCell>
+              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">Role</TableCell>
+              <TableCell align="right">Phone</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {userList &&
+              userFilterList === undefined &&
+              userList.map((row) => <Row key={row.name} row={row} />)}
 
-          {userFilterList !== undefined &&
-            userFilterList !== null &&
-            userFilterList.map((row) => <Row key={row.name} row={row} />)}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            {userFilterList !== undefined &&
+              userFilterList !== null &&
+              userFilterList.map((row) => <Row key={row.name} row={row} />)}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
 
