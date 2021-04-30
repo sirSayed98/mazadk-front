@@ -6,11 +6,18 @@ import TextField from "@material-ui/core/TextField";
 
 const userModal = (props) => {
   const [state, setState] = useState(false);
-  const onChange = () => {};
+  const [user, setUser] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    email: "",
+  });
+  const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   useEffect(() => {
     if (props.open === true) {
       setState(true);
+      setUser(props.user);
     }
   }, [props.open]);
 
@@ -40,6 +47,7 @@ const userModal = (props) => {
                 variant="outlined"
                 InputProps={{ inputProps: { minLength: 3, maxLength: 20 } }}
                 name="name"
+                value={user.name}
                 onChange={onChange}
               />
               <TextField
@@ -51,6 +59,7 @@ const userModal = (props) => {
                 variant="outlined"
                 InputProps={{ inputProps: { minLength: 11, maxLength: 11 } }}
                 name="phone"
+                value={user.phone}
                 onChange={onChange}
               />
               <TextField
@@ -62,6 +71,7 @@ const userModal = (props) => {
                 variant="outlined"
                 InputProps={{ inputProps: { minLength: 10, maxLength: 50 } }}
                 name="address"
+                value={user.address}
                 onChange={onChange}
               />
               <TextField
@@ -73,6 +83,7 @@ const userModal = (props) => {
                 variant="outlined"
                 InputProps={{ inputProps: { minLength: 5, maxLength: 50 } }}
                 name="email"
+                value={user.email}
                 onChange={onChange}
               />
 

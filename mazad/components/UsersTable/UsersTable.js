@@ -39,6 +39,7 @@ const useRowStyles = makeStyles({
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = useState(false);
+  const [editUser, setUser] = useState({});
   const [child, setChild] = useState(false);
   const classes = useRowStyles();
 
@@ -64,8 +65,9 @@ function Row(props) {
     });
   };
 
-  const toggleChildMenu = () => {
+  const toggleChildMenu = (row) => {
     setChild(!child);
+    setUser(row);
   };
 
   useEffect(() => {
@@ -82,7 +84,7 @@ function Row(props) {
 
   return (
     <>
-      <UserModal open={child} />
+      <UserModal user={editUser} open={child} />
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton
@@ -126,7 +128,7 @@ function Row(props) {
                         onClick={() => handleDelete(row._id, row.role)}
                         className="mr-2"
                       ></DeleteIcon>
-                      <EditIcon onClick={toggleChildMenu}></EditIcon>
+                      <EditIcon onClick={() => toggleChildMenu(row)}></EditIcon>
                     </TableCell>
                   </TableRow>
                 </TableBody>
