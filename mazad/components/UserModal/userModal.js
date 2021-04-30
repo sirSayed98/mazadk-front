@@ -7,6 +7,8 @@ import "react-responsive-modal/styles.css";
 import TextField from "@material-ui/core/TextField";
 import { Modal } from "react-responsive-modal";
 
+import { REST_USER_FILTER } from "../../Redux/constants/userCosntants/types";
+
 const userModal = (props) => {
   const [state, setState] = useState(false);
   const [user, setUser] = useState({
@@ -17,7 +19,6 @@ const userModal = (props) => {
   });
 
   const dispatch = useDispatch();
- 
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
@@ -30,7 +31,11 @@ const userModal = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(EditUser(user, props.user._id));
+    dispatch(EditUser(user, props.user._id)).then((el) => {
+      dispatch({
+        type: REST_USER_FILTER,
+      });
+    });
   };
 
   return (

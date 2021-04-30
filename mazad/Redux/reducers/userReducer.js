@@ -116,7 +116,6 @@ export const userListReducer = (state = { userFilterList: null }, action) => {
         userFilterList: undefined,
       };
     case EDIT_USER_SUCCESS:
-      console.log(state);
       return {
         loading: false,
         success: true,

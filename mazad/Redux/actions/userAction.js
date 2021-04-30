@@ -225,25 +225,27 @@ export const EditUser = (data, id) => async (dispatch) => {
     },
   };
 
-  try {
+  return new Promise((resolve, reject) => {
     dispatch({
       type: EDIT_USER_REQUEST,
     });
-    const res = await axios.put(EDIT_USER + `/${id}`, data, config);
-
-    dispatch({
-      type: EDIT_USER_SUCCESS,
-      payload: res.data.data,
-    });
-
-  } catch (error) {
-    console.log( error);
-    dispatch({
-      type: EDIT_USER_FAIL,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.response,
-    });
-  }
+    axios
+      .put(EDIT_USER + `/${id}`, data, config)
+      .then((res) => {
+        dispatch({
+          type: EDIT_USER_SUCCESS,
+          payload: res.data.data,
+        });
+        resolve("done");
+      })
+      .catch((error) => {
+        dispatch({
+          type: EDIT_USER_FAIL,
+          payload:
+            error.response && error.response.data.error
+              ? error.response.data.error
+              : error.response,
+        });
+      });
+  });
 };
