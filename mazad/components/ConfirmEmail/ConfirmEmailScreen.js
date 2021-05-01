@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 
 import { USER_REGISTER_REST } from "../../Redux/constants/userCosntants/types";
 
-import style from "./ConfirmEmailScreen.module.css";
 const ConfirmEmailScreen = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -23,17 +22,17 @@ const ConfirmEmailScreen = () => {
     }, 8000);
   }, [success]);
   return (
-    <div className={`${style.card_container}`}>
-      <div className={`${style.card_body} col-sm-12 col-lg-6 col-xl-4`}>
-        <div className={`${style.card_header} mb-4 text-capitalize `}>
+    <div className={`card_container`}>
+      <div className={`card_body col-sm-12 col-lg-6 col-xl-4`}>
+        <div className={`card_header mb-4 text-capitalize `}>
           <h1 className="display-4">Congratulation</h1>
           <h6 className="display-5">
             Please Check Your Email to complete your regestration
           </h6>
         </div>
-        <div className={style.card_bottom}>
+        <div className={`card_bottom`}>
           <div className="px-5">
-            <hr className={style.newLine} />
+            <hr className={`newLine`} />
           </div>
           <button className="btn btn-lg master_button">
             <Link href="/">GO HOME</Link>
