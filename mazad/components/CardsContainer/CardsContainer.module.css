@@ -1,0 +1,14 @@
+.scrollBar::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--color5);
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--color5);
+}
+@media only screen and (min-width: 900px) {
+  .scrollBar::-webkit-scrollbar-thumb {
+    background-color: var(--color1);
+  }
+}

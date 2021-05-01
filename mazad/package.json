@@ -23,6 +23,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "sweetalert2": "^10.16.6",
-    "sweetalert2-react-content": "^3.3.2"
+    "sweetalert2-react-content": "^3.3.2",
+    "swiper": "^6.5.9"
   }
 }

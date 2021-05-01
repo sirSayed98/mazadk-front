@@ -1,0 +1,17 @@
+.mazad_card_body {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 10px;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: white;
+}
+.mazad_container {
+  width: max-content;
+}
+.mazad_img {
+  width: 130px;
+  height: 169px;
+  object-fit: contain;
+}
