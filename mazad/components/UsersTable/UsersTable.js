@@ -127,8 +127,12 @@ function Row(props) {
                       <DeleteIcon
                         onClick={() => handleDelete(row._id, row.role)}
                         className="mr-2"
+                        color="secondary"
                       ></DeleteIcon>
-                      <EditIcon onClick={() => toggleChildMenu(row)}></EditIcon>
+                      <EditIcon
+                        color="primary"
+                        onClick={() => toggleChildMenu(row)}
+                      ></EditIcon>
                     </TableCell>
                   </TableRow>
                 </TableBody>

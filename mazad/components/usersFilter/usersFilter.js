@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import Cookies from "js-cookie";
 import {
   FILTER_USERS_TYPE,
   REST_USER_FILTER,
@@ -9,9 +9,10 @@ import {
 
 const UsersFilter = () => {
   const dispatch = useDispatch();
-  const userFilter = useSelector((state) => state.userList);
 
   const handleFilter = (e) => {
+    Cookies.set("filter", e.target.value);
+    
     if (e.target.value === "all") {
       dispatch({
         type: REST_USER_FILTER,
@@ -28,7 +29,7 @@ const UsersFilter = () => {
     <>
       <div className="col-lg-3 col-sm-6 mt-5">
         <div class="form-group">
-          <label for="exampleFormControlSelect1">Filter</label>
+          <label htmlFor="exampleFormControlSelect1">Filter</label>
           <select
             onChange={handleFilter}
             class="form-control"

@@ -7,7 +7,9 @@ import "react-responsive-modal/styles.css";
 import TextField from "@material-ui/core/TextField";
 import { Modal } from "react-responsive-modal";
 
-import { REST_USER_FILTER } from "../../Redux/constants/userCosntants/types";
+import { FILTER_USERS_TYPE } from "../../Redux/constants/userCosntants/types";
+
+import Cookies from "js-cookie";
 
 const userModal = (props) => {
   const [state, setState] = useState(false);
@@ -33,7 +35,8 @@ const userModal = (props) => {
     e.preventDefault();
     dispatch(EditUser(user, props.user._id)).then((el) => {
       dispatch({
-        type: REST_USER_FILTER,
+        type: FILTER_USERS_TYPE,
+        payload: Cookies.get("filter"),
       });
     });
   };
