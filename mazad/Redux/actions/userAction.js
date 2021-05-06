@@ -27,6 +27,9 @@ import {
   MERCHANT_REGISTER_FAIL,
   MERCHANT_REGISTER_REQUEST,
   MERCHANT_REGISTER_SUCCESS,
+  MERCHANT_GET_REQUESTS_REQUEST,
+  MERCHANT_GET_REQUESTS_SUCCESS,
+  MERCHANT_GET_REQUESTS_FAIL,
 } from "../constants/userCosntants/types";
 
 import {
@@ -36,7 +39,7 @@ import {
   FORGET_PASSWORD,
   RESET_PASSWORD,
   EDIT_USER,
-  MERCHANT_REQUEST
+  MERCHANT_REQUEST,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -254,7 +257,6 @@ export const EditUser = (data, id) => async (dispatch) => {
   });
 };
 
-
 export const MerchantRequest = (data) => async (dispatch) => {
   try {
     dispatch({
@@ -275,9 +277,42 @@ export const MerchantRequest = (data) => async (dispatch) => {
       type: MERCHANT_REGISTER_SUCCESS,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     dispatch({
       type: MERCHANT_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.error
+          ? error.response.data.error
+          : error.response,
+    });
+  }
+};
+
+export const MerchantGetRequests = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: MERCHANT_GET_REQUESTS_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await axios.get(MERCHANT_REQUEST, config);
+
+    console.log(res.data);
+
+    dispatch({
+      type: MERCHANT_GET_REQUESTS_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: MERCHANT_GET_REQUESTS_FAIL,
       payload:
         error.response && error.response.data.error
           ? error.response.data.error

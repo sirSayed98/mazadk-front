@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Redux/actions/userAction";
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,8 +17,9 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import HelpIcon from '@material-ui/icons/Help';
 
-import { logout } from "../../Redux/actions/userAction";
+
 
 import Link from "next/link";
 
@@ -102,6 +104,19 @@ export default function TemporaryDrawer() {
               <ListItemText>
                 <Link as={`/Users`} href={`/Users`}>
                   Users
+                </Link>
+              </ListItemText>
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <HelpIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Link as={`/Requests`} href={`/Requests`}>
+                 Requests
                 </Link>
               </ListItemText>
             </ListItem>

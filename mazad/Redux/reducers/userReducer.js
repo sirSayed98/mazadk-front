@@ -36,7 +36,10 @@ import {
   MERCHANT_REGISTER_FAIL,
   MERCHANT_REGISTER_REQUEST,
   MERCHANT_REGISTER_SUCCESS,
-  MERCHANT_REGISTER_REST
+  MERCHANT_REGISTER_REST,
+  MERCHANT_GET_REQUESTS_REQUEST,
+  MERCHANT_GET_REQUESTS_SUCCESS,
+  MERCHANT_GET_REQUESTS_FAIL,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -191,6 +194,21 @@ export const merchantRegisterReducer = (
     case MERCHANT_REGISTER_REST:
       return {  };
     default:
+      return state;
+  }
+};
+
+export const requestListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case MERCHANT_GET_REQUESTS_REQUEST:
+      return { loading: true };
+    case MERCHANT_GET_REQUESTS_SUCCESS:
+      return { loading: false, RequestList: action.payload, success: true };
+    case MERCHANT_GET_REQUESTS_FAIL:
+      return { loading: false, error: action.payload, success: false };
+    
+    
+      default:
       return state;
   }
 };
