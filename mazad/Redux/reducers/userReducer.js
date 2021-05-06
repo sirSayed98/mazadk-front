@@ -33,6 +33,10 @@ import {
   EDIT_USER_REQUEST,
   EDIT_USER_SUCCESS,
   EDIT_USER_FAIL,
+  MERCHANT_REGISTER_FAIL,
+  MERCHANT_REGISTER_REQUEST,
+  MERCHANT_REGISTER_SUCCESS,
+  MERCHANT_REGISTER_REST
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -168,6 +172,24 @@ export const userResetPasswordReducer = (state = {}, action) => {
       return { loading: false, error: action.payload, success: false };
     case RESET_PASSWORD_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const merchantRegisterReducer = (
+  state = { },
+  action
+) => {
+  switch (action.type) {
+    case MERCHANT_REGISTER_REQUEST:
+      return { loading: true };
+    case MERCHANT_REGISTER_SUCCESS:
+      return { loading: false, success: true };
+    case MERCHANT_REGISTER_FAIL:
+      return { loading: false, error: action.payload };
+    case MERCHANT_REGISTER_REST:
+      return {  };
     default:
       return state;
   }

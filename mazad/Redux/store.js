@@ -8,7 +8,7 @@ import {
   userDeleteReducer,
   userForgetPasswordReducer,
   userResetPasswordReducer,
-
+  merchantRegisterReducer
 } from "./reducers/userReducer";
 import Cookies from "js-cookie";
 
@@ -19,6 +19,7 @@ const reducer = combineReducers({
   userDeleted: userDeleteReducer,
   userForget: userForgetPasswordReducer,
   userRest: userResetPasswordReducer,
+  merchantRequest: merchantRegisterReducer,
 });
 
 const userInfoFromStorage = Cookies.get("token")
