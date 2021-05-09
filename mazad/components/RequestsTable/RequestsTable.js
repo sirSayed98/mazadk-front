@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { MerchantGetRequests } from "../../Redux/actions/userAction";
+import {
+  DealRequests,
+  MerchantGetRequests,
+} from "../../Redux/actions/userAction";
+import { popUpMessage } from "../utils/sweetAlert";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -23,18 +27,6 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 export default function RequestsTable() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -42,9 +34,20 @@ export default function RequestsTable() {
   const requestList = useSelector((state) => state.requestList);
   const { RequestList, loading, error } = requestList;
 
+  const handleAction = (id, decision) => {
+    dispatch(DealRequests(id, { accepted: decision }))
+      .then((el) => {
+        dispatch(MerchantGetRequests());
+        popUpMessage("Done", "New Merchant Created", "success");
+      })
+      .catch((error) => {
+        popUpMessage("Failed", error, "error");
+      });
+  };
   useEffect(() => {
     dispatch(MerchantGetRequests());
   }, []);
+
   return (
     <TableContainer component={Paper} className="mt-3">
       <Table className={classes.table} aria-label="simple table">
@@ -67,29 +70,38 @@ export default function RequestsTable() {
         </TableHead>
         <TableBody>
           {RequestList &&
-            RequestList.map((row) => (
-              <TableRow key={row._id}>
-                <TableCell component="th" scope="row">
-                  {row.companyName}
-                </TableCell>
+            RequestList.map(
+              (row) =>
+                !row.checked && (
+                  <TableRow key={row._id}>
+                    <TableCell component="th" scope="row">
+                      {row.companyName}
+                    </TableCell>
 
-                <TableCell align={"center"}>{row.email}</TableCell>
-                <TableCell align={"center"}>{row.phone}</TableCell>
-                <TableCell align={"center"}>{row.describtion}</TableCell>
-                <TableCell align={"center"}>
-                  <Tooltip title="Reject">
-                    <IconButton aria-label="Reject">
-                      <ClearIcon color="secondary" />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Accept">
-                    <IconButton aria-label="Accept">
-                      <DoneIcon color="primary" />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <TableCell align={"center"}>{row.email}</TableCell>
+                    <TableCell align={"center"}>{row.phone}</TableCell>
+                    <TableCell align={"center"}>{row.describtion}</TableCell>
+                    <TableCell align={"center"}>
+                      <Tooltip title="Reject">
+                        <IconButton
+                          onClick={() => handleAction(row._id, false)}
+                          aria-label="Reject"
+                        >
+                          <ClearIcon color="secondary" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Accept">
+                        <IconButton
+                          onClick={() => handleAction(row._id, true)}
+                          aria-label="Accept"
+                        >
+                          <DoneIcon color="primary" />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                )
+            )}
         </TableBody>
       </Table>
     </TableContainer>

@@ -30,6 +30,10 @@ import {
   MERCHANT_GET_REQUESTS_REQUEST,
   MERCHANT_GET_REQUESTS_SUCCESS,
   MERCHANT_GET_REQUESTS_FAIL,
+  MERCHANT_DEAL_REQUEST,
+  MERCHANT_DEAL_FAIL,
+  MERCHANT_DEAL_SUCCESS,
+  MERCHANT_DEAL_RESET,
 } from "../constants/userCosntants/types";
 
 import {
@@ -289,6 +293,7 @@ export const MerchantRequest = (data) => async (dispatch) => {
 };
 
 export const MerchantGetRequests = () => async (dispatch) => {
+  console.log("___________");
   try {
     dispatch({
       type: MERCHANT_GET_REQUESTS_REQUEST,
@@ -319,4 +324,26 @@ export const MerchantGetRequests = () => async (dispatch) => {
           : error.response,
     });
   }
+};
+
+export const DealRequests = (id, data) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .put(MERCHANT_REQUEST + `/${id}`, data, config)
+      .then((res) => {
+        console.log(res.data);
+        resolve("done");
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+        reject(error.response.data.error);
+      });
+  });
 };

@@ -40,6 +40,10 @@ import {
   MERCHANT_GET_REQUESTS_REQUEST,
   MERCHANT_GET_REQUESTS_SUCCESS,
   MERCHANT_GET_REQUESTS_FAIL,
+  MERCHANT_DEAL_REQUEST,
+  MERCHANT_DEAL_FAIL,
+  MERCHANT_DEAL_SUCCESS,
+  MERCHANT_DEAL_RESET,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -180,10 +184,7 @@ export const userResetPasswordReducer = (state = {}, action) => {
   }
 };
 
-export const merchantRegisterReducer = (
-  state = { },
-  action
-) => {
+export const merchantRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case MERCHANT_REGISTER_REQUEST:
       return { loading: true };
@@ -192,7 +193,7 @@ export const merchantRegisterReducer = (
     case MERCHANT_REGISTER_FAIL:
       return { loading: false, error: action.payload };
     case MERCHANT_REGISTER_REST:
-      return {  };
+      return {};
     default:
       return state;
   }
@@ -206,9 +207,15 @@ export const requestListReducer = (state = {}, action) => {
       return { loading: false, RequestList: action.payload, success: true };
     case MERCHANT_GET_REQUESTS_FAIL:
       return { loading: false, error: action.payload, success: false };
-    
-    
-      default:
+
+    case MERCHANT_DEAL_SUCCESS:
+      return {
+        ...state,
+        RequestList: state.RequestList.filter((row) => {
+          return row._id != action.payload;
+        }),
+      };
+    default:
       return state;
   }
 };
