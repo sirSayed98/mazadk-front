@@ -17,6 +17,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -29,19 +30,23 @@ const useStyles = makeStyles({
 
 export default function RequestsTable() {
   const classes = useStyles();
+  const [loadingProgress, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const requestList = useSelector((state) => state.requestList);
   const { RequestList, loading, error } = requestList;
 
   const handleAction = (id, decision) => {
+    setLoading(true);
     dispatch(DealRequests(id, { accepted: decision }))
       .then((el) => {
         dispatch(MerchantGetRequests());
         popUpMessage("Done", "New Merchant Created", "success");
+        setLoading(false);
       })
       .catch((error) => {
         popUpMessage("Failed", error, "error");
+        setLoading(false);
       });
   };
   useEffect(() => {
@@ -68,7 +73,17 @@ export default function RequestsTable() {
             })}
           </TableRow>
         </TableHead>
+
         <TableBody>
+          {loadingProgress && (
+            <>
+              <TableCell align={"center"}></TableCell>
+              <TableCell align={"center"}></TableCell>
+              <TableCell align={"center"}>{<CircularProgress />}</TableCell>
+              <TableCell align={"center"}></TableCell>
+              <TableCell align={"center"}></TableCell>
+            </>
+          )}
           {RequestList &&
             RequestList.map(
               (row) =>
@@ -77,7 +92,6 @@ export default function RequestsTable() {
                     <TableCell component="th" scope="row">
                       {row.companyName}
                     </TableCell>
-
                     <TableCell align={"center"}>{row.email}</TableCell>
                     <TableCell align={"center"}>{row.phone}</TableCell>
                     <TableCell align={"center"}>{row.describtion}</TableCell>

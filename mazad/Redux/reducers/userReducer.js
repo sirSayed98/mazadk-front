@@ -30,9 +30,7 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_RESET,
   RESET_DELETE_USER,
-  EDIT_USER_REQUEST,
   EDIT_USER_SUCCESS,
-  EDIT_USER_FAIL,
   MERCHANT_REGISTER_FAIL,
   MERCHANT_REGISTER_REQUEST,
   MERCHANT_REGISTER_SUCCESS,
@@ -40,10 +38,7 @@ import {
   MERCHANT_GET_REQUESTS_REQUEST,
   MERCHANT_GET_REQUESTS_SUCCESS,
   MERCHANT_GET_REQUESTS_FAIL,
-  MERCHANT_DEAL_REQUEST,
-  MERCHANT_DEAL_FAIL,
-  MERCHANT_DEAL_SUCCESS,
-  MERCHANT_DEAL_RESET,
+  
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -207,14 +202,6 @@ export const requestListReducer = (state = {}, action) => {
       return { loading: false, RequestList: action.payload, success: true };
     case MERCHANT_GET_REQUESTS_FAIL:
       return { loading: false, error: action.payload, success: false };
-
-    case MERCHANT_DEAL_SUCCESS:
-      return {
-        ...state,
-        RequestList: state.RequestList.filter((row) => {
-          return row._id != action.payload;
-        }),
-      };
     default:
       return state;
   }
