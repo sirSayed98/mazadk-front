@@ -1,7 +1,10 @@
 .login_form {
   display: flex;
   justify-content: center;
-  height: 100vh;
   margin-top: 40px;
   text-align: center;
+}
+.login_form_container{
+  background-color: white;
+  border-radius: 20px;
 }

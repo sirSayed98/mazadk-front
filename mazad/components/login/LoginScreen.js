@@ -40,7 +40,7 @@ const LoginScreen = () => {
       <div
         className={`${style.login_form_container} col-sm-10 col-lg-8 col-xl-6`}
       >
-        <form autoComplete="on" onSubmit={submitHandler}>
+        <form className='mt-5' autoComplete="on" onSubmit={submitHandler}>
           <TextField
             label="Email"
             fullWidth
@@ -67,7 +67,7 @@ const LoginScreen = () => {
             Login
           </button>
         </form>
-        <div className="mt-3">
+        <div className="mt-3 mb-4">
           <Link href={"/forget_password"}>Forget Password</Link>
         </div>
       </div>
