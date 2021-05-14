@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import UserTabs from "./UserTabs";
+
 import style from "./ProfileScreen.module.css";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
@@ -109,14 +111,21 @@ const ProfileScreen = () => {
                   name="password"
                   className="mt-3"
                 />
-                <button className={`master_button btn btn-lg mt-3 mb-5 btn-block`}>
+                <button
+                  className={`master_button btn btn-lg mt-3 mb-5 btn-block`}
+                >
                   Edit
                 </button>
               </form>
             </div>
 
+            <hr />
             <div className={`${style.userData} col-sm-12 col-lg-8`}>
-              <h1>lol</h1>
+              {userInfo && userInfo.role === "user" && (
+                <div className="mt-5 container">
+                  <UserTabs id={userInfo._id} />
+                </div>
+              )}
             </div>
           </div>
         </div>
