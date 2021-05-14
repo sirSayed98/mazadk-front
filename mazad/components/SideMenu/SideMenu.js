@@ -17,9 +17,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import HelpIcon from '@material-ui/icons/Help';
-
-
+import HelpIcon from "@material-ui/icons/Help";
+import PersonIcon from '@material-ui/icons/Person';
 
 import Link from "next/link";
 
@@ -116,7 +115,7 @@ export default function TemporaryDrawer() {
               </ListItemIcon>
               <ListItemText>
                 <Link as={`/Requests`} href={`/Requests`}>
-                 Requests
+                  Requests
                 </Link>
               </ListItemText>
             </ListItem>
@@ -125,17 +124,31 @@ export default function TemporaryDrawer() {
         </>
       )}
 
-      
       <Divider />
       {userInfo && (
-        <List onClick={handleLogout}>
-          <ListItem button>
-            <ListItemIcon>
-              <MeetingRoomIcon />
-            </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
-          </ListItem>
-        </List>
+        <>
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Link as={`/Profile`} href={`/Profile`}>
+                  Profile
+                </Link>
+              </ListItemText>
+            </ListItem>
+          </List>
+          <Divider />
+          <List onClick={handleLogout}>
+            <ListItem button>
+              <ListItemIcon>
+                <MeetingRoomIcon />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </ListItem>
+          </List>
+        </>
       )}
     </div>
   );

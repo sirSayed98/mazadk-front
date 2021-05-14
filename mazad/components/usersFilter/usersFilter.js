@@ -28,11 +28,11 @@ const UsersFilter = () => {
   return (
     <>
       <div className="col-lg-3 col-sm-6 mt-5">
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="exampleFormControlSelect1">Filter</label>
           <select
             onChange={handleFilter}
-            class="form-control"
+            className="form-control"
             id="exampleFormControlSelect1"
           >
             <option value="all">ALL</option>
