@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+
 import UserTabs from "./UserTabs";
+import AdminCards from "./AdminCards";
 
 import style from "./ProfileScreen.module.css";
 import EditIcon from "@material-ui/icons/Edit";
@@ -124,6 +126,11 @@ const ProfileScreen = () => {
               {userInfo && userInfo.role === "user" && (
                 <div className="mt-5 container">
                   <UserTabs id={userInfo._id} />
+                </div>
+              )}
+              {userInfo && userInfo.role === "admin" && (
+                <div className="mt-5 container">
+                  <AdminCards />
                 </div>
               )}
             </div>

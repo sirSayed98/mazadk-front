@@ -97,4 +97,23 @@ a:hover {
   border-radius: 20px;
 }
 
+.card_purple_blue {
+  background: linear-gradient(45deg, #6d80fe 0%, #23d2fd 100%);
+  box-shadow: 0 5px 20px rgba(35, 210, 253, 0.3);
+}
+
+.card_salmon_pink {
+  background: linear-gradient(45deg, #ff998b 0%, #ff6d88 100%);
+  box-shadow: 0 5px 20px rgba(255, 153, 139, 0.3);
+}
+
+.card_blue_green {
+  background: linear-gradient(45deg, #09afe8 0%, #29f499 100%);
+  box-shadow: 0 5px 20px rgba(41, 244, 153, 0.3);
+}
+
+.card_purple_pink {
+  background: linear-gradient(45deg, #707cff 0%, #fa81e8 100%);
+  box-shadow: 0 5px 20px rgba(250, 129, 232, 0.3);
+}
 
