@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 import { logout } from "../../Redux/actions/userAction";
 
 import style from "./Navbar.module.css";
@@ -10,8 +10,10 @@ const Navbar = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleLogout = () => {
+    router.push("/");
     dispatch(logout());
   };
 

@@ -30,10 +30,7 @@ import {
   MERCHANT_GET_REQUESTS_REQUEST,
   MERCHANT_GET_REQUESTS_SUCCESS,
   MERCHANT_GET_REQUESTS_FAIL,
-  MERCHANT_DEAL_REQUEST,
-  MERCHANT_DEAL_FAIL,
-  MERCHANT_DEAL_SUCCESS,
-  MERCHANT_DEAL_RESET,
+  UPDAT_ME_SUCCESS
 } from "../constants/userCosntants/types";
 
 import {
@@ -44,6 +41,7 @@ import {
   RESET_PASSWORD,
   EDIT_USER,
   MERCHANT_REQUEST,
+  UPDATE_ME,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -293,7 +291,6 @@ export const MerchantRequest = (data) => async (dispatch) => {
 };
 
 export const MerchantGetRequests = () => async (dispatch) => {
-  console.log("___________");
   try {
     dispatch({
       type: MERCHANT_GET_REQUESTS_REQUEST,
@@ -344,6 +341,36 @@ export const DealRequests = (id, data) => async (dispatch) => {
       .catch((error) => {
         console.log(error.response.data.error);
         reject(error.response.data.error);
+      });
+  });
+};
+
+export const UpdateMe = (data) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .put(UPDATE_ME, data, config)
+      .then((res) => {
+        Cookies.set("userInfo", JSON.stringify(res.data.data));
+        resolve("done");
+        dispatch({
+          type: UPDAT_ME_SUCCESS,
+          payload: res.data.data,
+        });
+        
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
       });
   });
 };

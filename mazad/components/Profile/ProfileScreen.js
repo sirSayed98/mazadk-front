@@ -10,6 +10,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 
+import { popUpMessage } from "../utils/sweetAlert";
+import { UpdateMe } from "../../Redux/actions/userAction";
+
 const ProfileScreen = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -23,6 +26,17 @@ const ProfileScreen = () => {
     password: "",
   });
   const onChange = (e) => setData({ ...data, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(UpdateMe(data))
+      .then((res) => {
+        popUpMessage("Profile has been updated", "welcome again", "success");
+      })
+      .catch((err) => {
+        popUpMessage("Failed", err, "error");
+      });
+  };
 
   useEffect(() => {
     if (userInfo === null) {
@@ -40,7 +54,7 @@ const ProfileScreen = () => {
               <div className={`${style.imgBox} mt-4 mb-3`}>
                 <img
                   className={`${style.userImg}`}
-                  src="https://images.unsplash.com/photo-1433360405326-e50f909805b3?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=359e8e12304ffa04a38627a157fc3362"
+                  src="https://www.w3schools.com/howto/img_avatar.png"
                 />
                 <div className={`${style.editButton}`}>
                   <IconButton aria-label="Accept">
@@ -49,12 +63,15 @@ const ProfileScreen = () => {
                 </div>
               </div>
 
-              <form className="mt-5 container" autoComplete="on">
+              <form
+                onSubmit={onSubmit}
+                className="mt-5 container"
+                autoComplete="on"
+              >
                 <TextField
                   fullWidth
                   required
                   type="text"
-                  // onChange={(e) => setEmail(e.target.value)}
                   variant="outlined"
                   name="role"
                   disabled={true}
@@ -79,7 +96,7 @@ const ProfileScreen = () => {
                   name="name"
                   className="mt-3"
                   onChange={onChange}
-                  value={data.name}
+                  value={data && data.name}
                 />
 
                 <TextField
@@ -91,7 +108,7 @@ const ProfileScreen = () => {
                   name="address"
                   className="mt-3"
                   onChange={onChange}
-                  value={data.address}
+                  value={data && data.address}
                 />
                 <TextField
                   label="Phone"
@@ -101,17 +118,19 @@ const ProfileScreen = () => {
                   variant="outlined"
                   name="phone"
                   className="mt-3"
-                  value={data.phone}
+                  value={data && data.phone}
                   onChange={onChange}
                 />
                 <TextField
                   label="Password"
-                  fullWidth
                   required
+                  fullWidth
                   type="password"
                   variant="outlined"
                   name="password"
+                  InputProps={{ inputProps: { minLength: 8, maxLength: 25 } }}
                   className="mt-3"
+                  onChange={onChange}
                 />
                 <button
                   className={`master_button btn btn-lg mt-3 mb-5 btn-block`}
