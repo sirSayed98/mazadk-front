@@ -30,7 +30,7 @@ import {
   MERCHANT_GET_REQUESTS_REQUEST,
   MERCHANT_GET_REQUESTS_SUCCESS,
   MERCHANT_GET_REQUESTS_FAIL,
-  UPDAT_ME_SUCCESS
+  UPDAT_ME_SUCCESS,
 } from "../constants/userCosntants/types";
 
 import {
@@ -42,6 +42,7 @@ import {
   EDIT_USER,
   MERCHANT_REQUEST,
   UPDATE_ME,
+  MAZAD_STATIST,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -363,7 +364,31 @@ export const UpdateMe = (data) => async (dispatch) => {
           type: UPDAT_ME_SUCCESS,
           payload: res.data.data,
         });
-        
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const STATISTICS = () => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(MAZAD_STATIST, config)
+      .then((res) => {
+        console.log(res.data.data);
+        resolve(res.data.data);
       })
       .catch((error) => {
         reject(

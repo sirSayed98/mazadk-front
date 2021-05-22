@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./AdminCards.module.css";
 
+import { STATISTICS } from "../../Redux/actions/userAction";
+import { useDispatch } from "react-redux";
+
 const AdminCards = () => {
+  const dispatch = useDispatch();
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    dispatch(STATISTICS()).then((res) => {
+      setData(res);
+      console.log(res);
+    });
+  }, []);
+
   return (
     <>
       <div class="container-fluid">
@@ -12,12 +25,36 @@ const AdminCards = () => {
         </div>
         <div class="row mb-5">
           {[
-            { number: 200, color: "card_purple_blue", attribute: "USERS" },
-            { number: 300, color: "card_salmon_pink", attribute: "ADMINS" },
-            { number: 300, color: "card_blue_green", attribute: "MERCHANTS" },
-            { number: 300, color: "card_purple_pink", attribute: "MAZADS" },
-            { number: 300, color: "card_salmon_pink", attribute: "REQUESTS" },
-            { number: 1000, color: "card_blue_green", attribute: "TOTAL" }
+            {
+              number: data && data.users,
+              color: "card_purple_blue",
+              attribute: "USERS",
+            },
+            {
+              number: data && data.admins,
+              color: "card_salmon_pink",
+              attribute: "ADMINS",
+            },
+            {
+              number: data && data.merchants,
+              color: "card_blue_green",
+              attribute: "MERCHANTS",
+            },
+            {
+              number: data && data.total_users,
+              color: "card_purple_pink",
+              attribute: "TOTAL USERS",
+            },
+            {
+              number: data && data.total_requests,
+              color: "card_salmon_pink",
+              attribute: "REQUESTS",
+            },
+            {
+              number: 200,
+              color: "card_blue_green",
+              attribute: "MAZAD",
+            },
           ].map((el) => {
             return (
               <div class="col-12 col-sm-6 col-md-6 mb-3">
