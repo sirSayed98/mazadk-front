@@ -1,0 +1,19 @@
+.cardContainer {
+  width: 300px;
+  background-color: white;
+  height: 60vh;
+  border-radius: 10px;
+}
+.imgCard {
+  width: 139px;
+  height: 160px;
+  object-fit: contain;
+}
+.btn_Bid {
+  padding: 10px 25px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color:  #1e242d;
+  color: yellow;
+  border-radius: 10px;
+}
