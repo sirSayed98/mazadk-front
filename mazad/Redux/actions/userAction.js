@@ -43,6 +43,8 @@ import {
   MERCHANT_REQUEST,
   UPDATE_ME,
   MAZAD_STATIST,
+  USER_UPLOAD,
+  MAZAD_UPLOAD,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -389,6 +391,37 @@ export const STATISTICS = () => async (dispatch) => {
       .then((res) => {
         console.log(res.data.data);
         resolve(res.data.data);
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const UploadPhoto = (form, target) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  const endpoint = target === "user" ? USER_UPLOAD : MAZAD_UPLOAD;
+  
+  return new Promise((resolve, reject) => {
+    axios
+      .post(endpoint, form, config)
+      .then((res) => {
+        console.log(res.data.data);
+        resolve("success");
+        dispatch({
+          type: UPDAT_ME_SUCCESS,
+          payload: res.data.data,
+        });
       })
       .catch((error) => {
         reject(

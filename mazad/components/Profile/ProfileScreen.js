@@ -11,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 
 import { popUpMessage } from "../utils/sweetAlert";
-import { UpdateMe } from "../../Redux/actions/userAction";
+import { UpdateMe, UploadPhoto } from "../../Redux/actions/userAction";
 import { GENERAL_HOST } from "../../Redux/constants/General";
 const ProfileScreen = () => {
   const dispatch = useDispatch();
@@ -43,9 +43,18 @@ const ProfileScreen = () => {
   };
 
   const onChangeImage = (e) => {
-    setNewProfile(e.target.files[0]);
+    const file = e.target.files[0];
+    setNewProfile(file);
     setUpdate(true);
-    console.log(e.target.files[0]);
+    const formData = new FormData();
+    formData.append("image", file);
+    dispatch(UploadPhoto(formData, "user"))
+    .then((res) => {
+        popUpMessage("Photo has been updated", "Awesome Pic", "success");
+      })
+      .catch((err) => {
+        popUpMessage("Failed to Update", err, "Try Again!");
+      });
   };
   useEffect(() => {
     if (userInfo === null) {
