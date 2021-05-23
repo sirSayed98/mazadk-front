@@ -18,8 +18,8 @@ import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import HelpIcon from "@material-ui/icons/Help";
-import PersonIcon from '@material-ui/icons/Person';
-
+import PersonIcon from "@material-ui/icons/Person";
+import AddIcon from '@material-ui/icons/Add';
 import Link from "next/link";
 
 const useStyles = makeStyles({
@@ -140,6 +140,29 @@ export default function TemporaryDrawer() {
             </ListItem>
           </List>
           <Divider />
+        </>
+      )}
+      {userInfo && userInfo.role === "merchant" && (
+        <>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <AddIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Link as={`/Create_Mazad`} href={`/Create_Mazad`}>
+                  Create Mazad
+                </Link>
+              </ListItemText>
+            </ListItem>
+          </List>
+          <Divider />
+        </>
+      )}
+{userInfo && (
+        <>
+          <Divider />
           <List onClick={handleLogout}>
             <ListItem button>
               <ListItemIcon>
@@ -150,6 +173,7 @@ export default function TemporaryDrawer() {
           </List>
         </>
       )}
+
     </div>
   );
   const userLogin = useSelector((state) => state.userLogin);
