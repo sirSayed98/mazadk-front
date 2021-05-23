@@ -12,13 +12,17 @@ import TextField from "@material-ui/core/TextField";
 
 import { popUpMessage } from "../utils/sweetAlert";
 import { UpdateMe } from "../../Redux/actions/userAction";
-
+import { GENERAL_HOST } from "../../Redux/constants/General";
 const ProfileScreen = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const [update, setUpdate] = useState(false);
+  const [newProfile, setNewProfile] = useState("");
+
   const [data, setData] = useState({
     name: "",
     phone: "",
@@ -38,6 +42,11 @@ const ProfileScreen = () => {
       });
   };
 
+  const onChangeImage = (e) => {
+    setNewProfile(e.target.files[0]);
+    setUpdate(true);
+    console.log(e.target.files[0]);
+  };
   useEffect(() => {
     if (userInfo === null) {
       router.push("/");
@@ -52,11 +61,32 @@ const ProfileScreen = () => {
           <div className={`row`}>
             <div className={`${style.userPicBox} col-sm-12 col-lg-4 `}>
               <div className={`${style.imgBox} mt-4 mb-3`}>
-                <img
-                  className={`${style.userImg}`}
-                  src="https://www.w3schools.com/howto/img_avatar.png"
+                {userInfo && (
+                  <img
+                    className={`${style.userImg}`}
+                    src={
+                      update
+                        ? URL.createObjectURL(newProfile)
+                        : GENERAL_HOST + userInfo.photo
+                    }
+                    onClick={() =>
+                      document.getElementById("profile_pic").click()
+                    }
+                  />
+                )}
+
+                <input
+                  type="file"
+                  name="profile_pic"
+                  id="profile_pic"
+                  onChange={onChangeImage}
+                  style={{ display: "none" }}
                 />
-                <div className={`${style.editButton}`}>
+
+                <div
+                  className={`${style.editButton}`}
+                  onClick={() => document.getElementById("profile_pic").click()}
+                >
                   <IconButton aria-label="Accept">
                     <EditIcon />
                   </IconButton>
