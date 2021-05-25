@@ -1,26 +1,72 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import style from "./MazadForm.module.css";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+
 import { TimeNow } from "../utils/GetCurrentTime";
+import { CreateMazad } from "../../Redux/actions/mazadActions";
+import { popUpMessage } from "../utils/sweetAlert";
 
 const MazadForm = () => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const [data, setData] = useState({
     name: "",
     describtion: "",
     start_price: 0,
     market_price: 0,
-    expected_peice: 0,
+    expected_price: 0,
     start_time: 0,
     end_time: 0,
+    merchant: userInfo && userInfo._id,
   });
+
+  const [timeNow, setTimeNow] = useState(TimeNow());
   const onChange = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setTimeNow(TimeNow());
+
+    if (data.start_time < timeNow) {
+      popUpMessage(
+        "Start Time Less than Current Time",
+        "increase start time",
+        "error"
+      );
+    } else if (data.end_time < timeNow) {
+      popUpMessage(
+        "End Time Less than Current Time",
+        "increase start time",
+        "error"
+      );
+    } else if (data.start_time > data.end_time) {
+      popUpMessage(
+        "End Time less than Start Time",
+        "increase end time",
+        "error"
+      );
+    } else {
+      setLoading(true);
+      console.log(data);
+      dispatch(CreateMazad(data))
+        .then((res) => {
+          setLoading(false);
+          popUpMessage("Done", "upload photo now", "success");
+        })
+        .catch((err) => {
+          setLoading(false);
+          popUpMessage("Error", err, "error");
+        });
+    }
   };
- 
+
   return (
     <div>
       <div className="container">
@@ -35,7 +81,7 @@ const MazadForm = () => {
                 type="text"
                 className="mb-3"
                 variant="outlined"
-                InputProps={{ inputProps: { minLength: 3, maxLength: 20 } }}
+                InputProps={{ inputProps: { minLength: 3, maxLength: 30 } }}
                 name="name"
                 onChange={onChange}
               />
@@ -46,7 +92,7 @@ const MazadForm = () => {
                 type="text"
                 className="mb-3"
                 variant="outlined"
-                InputProps={{ inputProps: { minLength: 8, maxLength: 30 } }}
+                InputProps={{ inputProps: { minLength: 8, maxLength: 50 } }}
                 name="describtion"
                 onChange={onChange}
               />
@@ -117,6 +163,7 @@ const MazadForm = () => {
                 type="datetime-local"
                 className="mb-3"
                 name="start_time"
+                defaultValue={TimeNow()}
                 onChange={onChange}
               />
               <TextField
@@ -126,10 +173,16 @@ const MazadForm = () => {
                 type="datetime-local"
                 className="mb-5"
                 name="end_time"
+                defaultValue={TimeNow()}
                 onChange={onChange}
               />
               <div className="d-flex justify-content-center">
-                <button className={`master_button btn btn-lg mb-5`}>Create</button>
+                <button
+                  disabled={loading}
+                  className={`master_button btn btn-lg mb-5`}
+                >
+                  Create
+                </button>
               </div>
             </form>
           </div>
