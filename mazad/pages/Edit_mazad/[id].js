@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+
+import EditMazadScreen from "../../components/EditMazad/EditMazadScreen";
+import Navbar from "../../components/Navbar/Navbar";
+
 
 const EditMazad = () => {
-    return (
-        <>
-            
-        </>
-    )
-}
+  const router = useRouter();
+  useEffect(() => {
+  }, []);
+  return (
+    <>
+      <Navbar />
+      {router.query.id && <EditMazadScreen id={router.query.id} />}
+    </>
+  );
+};
 
-export default EditMazad
+export default EditMazad;

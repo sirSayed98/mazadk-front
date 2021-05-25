@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+
 import {
   userLoginReducer,
   userRegisterReducer,
@@ -9,8 +10,10 @@ import {
   userForgetPasswordReducer,
   userResetPasswordReducer,
   merchantRegisterReducer,
-  requestListReducer
+  requestListReducer,
 } from "./reducers/userReducer";
+import { SingleMazadReducer } from "./reducers/mazadReducer";
+
 import Cookies from "js-cookie";
 
 const reducer = combineReducers({
@@ -21,7 +24,8 @@ const reducer = combineReducers({
   userForget: userForgetPasswordReducer,
   userRest: userResetPasswordReducer,
   merchantRequest: merchantRegisterReducer,
-  requestList:requestListReducer
+  requestList: requestListReducer,
+  singleMazad: SingleMazadReducer,
 });
 
 const userInfoFromStorage = Cookies.get("token")

@@ -1,0 +1,1 @@
+export const GET_MAZAD_SUCCESS = "GET_MAZAD_SUCCESS";

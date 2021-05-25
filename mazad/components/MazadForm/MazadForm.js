@@ -9,12 +9,15 @@ import { TimeNow } from "../utils/GetCurrentTime";
 import { CreateMazad } from "../../Redux/actions/mazadActions";
 import { popUpMessage } from "../utils/sweetAlert";
 
+import { useRouter } from "next/router";
 const MazadForm = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const router = useRouter();
 
   const [data, setData] = useState({
     name: "",
@@ -54,11 +57,12 @@ const MazadForm = () => {
       );
     } else {
       setLoading(true);
-      console.log(data);
       dispatch(CreateMazad(data))
-        .then((res) => {
+        .then((id) => {
           setLoading(false);
+
           popUpMessage("Done", "upload photo now", "success");
+          router.push(`/Edit_mazad/${id}`);
         })
         .catch((err) => {
           setLoading(false);
