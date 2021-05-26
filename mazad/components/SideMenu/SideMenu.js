@@ -19,9 +19,9 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import HelpIcon from "@material-ui/icons/Help";
 import PersonIcon from "@material-ui/icons/Person";
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 });
 
 export default function TemporaryDrawer() {
+  const router = useRouter();
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -160,7 +161,7 @@ export default function TemporaryDrawer() {
           <Divider />
         </>
       )}
-{userInfo && (
+      {userInfo && (
         <>
           <Divider />
           <List onClick={handleLogout}>
@@ -173,7 +174,6 @@ export default function TemporaryDrawer() {
           </List>
         </>
       )}
-
     </div>
   );
   const userLogin = useSelector((state) => state.userLogin);
@@ -181,6 +181,7 @@ export default function TemporaryDrawer() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
+    router.push("/");
     dispatch(logout());
   };
   //userInfo.role

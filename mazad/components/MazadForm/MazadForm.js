@@ -25,6 +25,7 @@ const MazadForm = () => {
     start_price: 0,
     market_price: 0,
     expected_price: 0,
+    increased_value: 0,
     start_time: 0,
     end_time: 0,
     merchant: userInfo && userInfo._id,

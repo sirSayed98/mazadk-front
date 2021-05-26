@@ -42,7 +42,34 @@ export const GetSingleMazad = (id) => async (dispatch) => {
     axios
       .get(SINGLE_MAZAD + `/${id}`, config)
       .then((res) => {
-        resolve("done");
+        resolve(res.data.data);
+        dispatch({
+          type: GET_MAZAD_SUCCESS,
+          payload: res.data.data,
+        });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const EditMazad = (id, data) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .put(SINGLE_MAZAD + `/${id}`, data, config)
+      .then((res) => {
+        resolve(res.data.data);
         dispatch({
           type: GET_MAZAD_SUCCESS,
           payload: res.data.data,
