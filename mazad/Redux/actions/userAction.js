@@ -32,7 +32,7 @@ import {
   MERCHANT_GET_REQUESTS_FAIL,
   UPDAT_ME_SUCCESS,
 } from "../constants/userCosntants/types";
-
+import { UPDATE_MAZAD_SUCCESS } from "../constants/mazadConstants/types";
 import {
   USER_LOGIN,
   USER_REGISTER,
@@ -411,17 +411,24 @@ export const UploadPhoto = (form, target) => async (dispatch) => {
   };
 
   const endpoint = target === "user" ? USER_UPLOAD : MAZAD_UPLOAD;
-  
+
   return new Promise((resolve, reject) => {
     axios
       .post(endpoint, form, config)
       .then((res) => {
         console.log(res.data.data);
         resolve("success");
-        dispatch({
-          type: UPDAT_ME_SUCCESS,
-          payload: res.data.data,
-        });
+        if (target == "user") {
+          dispatch({
+            type: UPDAT_ME_SUCCESS,
+            payload: res.data.data,
+          });
+        } else {
+          dispatch({
+            type: UPDATE_MAZAD_SUCCESS,
+            payload: res.data.data,
+          });
+        }
       })
       .catch((error) => {
         reject(
