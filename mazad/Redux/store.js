@@ -25,7 +25,7 @@ const reducer = combineReducers({
   userRest: userResetPasswordReducer,
   merchantRequest: merchantRegisterReducer,
   requestList: requestListReducer,
-  singleMazad: SingleMazadReducer,
+  Mazad: SingleMazadReducer,
 });
 
 const userInfoFromStorage = Cookies.get("token")

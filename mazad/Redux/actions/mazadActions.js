@@ -4,9 +4,14 @@ import Cookies from "js-cookie";
 import {
   CREATE_MAZAD,
   SINGLE_MAZAD,
+  USER_CURRENT_MAZADS,
+  CURRENT_MAZADS,
 } from "../constants/mazadConstants/endPoints";
 
-import { GET_MAZAD_SUCCESS } from "../constants/mazadConstants/types";
+import {
+  GET_MAZAD_SUCCESS,
+  GET_HOME_AUCTION_NOW_SUCCESS,
+} from "../constants/mazadConstants/types";
 export const CreateMazad = (data) => async (dispatch) => {
   const config = {
     headers: {
@@ -72,6 +77,41 @@ export const EditMazad = (id, data) => async (dispatch) => {
         resolve(res.data.data);
         dispatch({
           type: GET_MAZAD_SUCCESS,
+          payload: res.data.data,
+        });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const HomeCurrentMazads = () => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: Cookies.get("token")
+        ? `Bearer ${Cookies.get("token")}`
+        : "",
+      "Content-Type": "application/json",
+    },
+  };
+
+  const endpoint = Cookies.get("token") ? USER_CURRENT_MAZADS : CURRENT_MAZADS;
+  
+
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(endpoint, config)
+      .then((res) => {
+        resolve(res.data.data);
+        console.log(res.data.data)
+        dispatch({
+          type: GET_HOME_AUCTION_NOW_SUCCESS,
           payload: res.data.data,
         });
       })

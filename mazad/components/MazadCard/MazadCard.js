@@ -1,35 +1,38 @@
 import React from "react";
 import Link from "next/link";
 import style from "./MazadCard.module.css";
-
-const MazadCard = () => {
+import { GENERAL_HOST } from "../../Redux/constants/General";
+const MazadCard = ({ data }) => {
   return (
     <>
       <div className={`${style.mazad_container}`}>
         <div className={`${style.mazad_card_body}`}>
-          <div className={`${style.mazad_img_box}`}>
+          <div className={`${style.mazad_img_box} mr-2`}>
             <div>
-              <img className={`${style.mazad_img}`} src="./iphone.png" />
+              <img
+                className={`${style.mazad_img}`}
+                src={GENERAL_HOST + data.photo}
+              />
             </div>
           </div>
 
           <div className={`${style.mazad_card_text} text-left `}>
             <Link href={`/[mazad]/[id]`} as={`/mazad/${1}`}>
-              <h1>iPhone Pro</h1>
+              <h1>{data.name}</h1>
             </Link>
 
-            <p>short discribtion mvmvmvmv</p>
+            <p>{data.describtion}</p>
             <h6>
               <span>Market Price :</span>
-              <span>400$</span>
+              <span>{data.market_price}$</span>
             </h6>
             <h6>
               <span>Expected Price :</span>
-              <span>400$</span>
+              <span>{data.expected_price}$</span>
             </h6>
             <h6>
               <span>Price Until Now :</span>
-              <span>400$</span>
+              <span>{data.current_price}$</span>
             </h6>
           </div>
         </div>

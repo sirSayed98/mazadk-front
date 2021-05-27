@@ -13,7 +13,7 @@ import { TimeNow } from "../utils/GetCurrentTime";
 
 const EditMazadScreen = ({ id }) => {
   const dispatch = useDispatch();
-  const { singleMazad } = useSelector((state) => state.singleMazad);
+  const { singleMazad } = useSelector((state) => state.Mazad);
 
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -94,7 +94,7 @@ const EditMazadScreen = ({ id }) => {
 
   return (
     <>
-      <button onClick={() => console.log(singleMazad)}>TEST</button>
+      {/* <button onClick={() => console.log(singleMazad)}>TEST</button> */}
       <div className={`container`}>
         <div className={`${style.mainBody}`}>
           <div className="row">

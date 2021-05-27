@@ -126,6 +126,19 @@ export default function TemporaryDrawer() {
       )}
 
       <Divider />
+      {userInfo && userInfo.role === "merchant" && (
+        <>
+          <List>
+            <ListItem>
+              <ListItemText
+                className="text-center"
+                primary={"Merchant Dashboard"}
+              />
+            </ListItem>
+          </List>
+          <Divider />
+        </>
+      )}
       {userInfo && (
         <>
           <List>
