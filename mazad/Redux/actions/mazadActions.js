@@ -8,6 +8,7 @@ import {
   CURRENT_MAZADS,
   USER_UP_COMING_MAZADS,
   UP_COMING_MAZADS,
+  JOIN_MAZAD,
 } from "../constants/mazadConstants/endPoints";
 
 import {
@@ -150,6 +151,31 @@ export const HomeUpComingMazads = () => async (dispatch) => {
           type: GET_HOME_AUCTION_UP_COMING_SUCCESS,
           payload: res.data.data,
         });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const JoinMazad = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(JOIN_MAZAD + `/${id}`, {}, config)
+      .then((res) => {
+        resolve(res.data.data);
+        console.log(res.data.data);
       })
       .catch((error) => {
         reject(

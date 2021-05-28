@@ -1,10 +1,49 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
 import { GENERAL_HOST } from "../../Redux/constants/General";
+import { JoinMazad } from "../../Redux/actions/mazadActions";
+import { popUpMessage } from "../utils/sweetAlert";
 
 import Link from "next/link";
 import style from "./MazadCard.module.css";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 const MazadCard = ({ data, upComing }) => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const dispatch = useDispatch();
+  const { userInfo } = userLogin;
+
+  const router = useRouter();
+  const MySwal = withReactContent(Swal);
+
+  const Join = (id) => {
+    if (userInfo !== undefined && userInfo !== null) {
+      MySwal.fire({
+        title: "Do you want to join Mazad?",
+        showDenyButton: true,
+        confirmButtonText: `Yes`,
+        denyButtonText: `No`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(JoinMazad(data._id))
+            .then((res) => {
+              popUpMessage("You have Joined !", "Bid Now!", "success");
+              router.push(`/mazad/${data._id}`);
+            })
+            .catch((err) => {
+              popUpMessage("Failed To join", err, "error");
+            });
+        }
+      });
+    } else {
+      router.push("/Login");
+    }
+  };
   return (
     <>
       <div className={`${style.mazad_container}`}>
@@ -19,7 +58,7 @@ const MazadCard = ({ data, upComing }) => {
           </div>
 
           <div className={`${style.mazad_card_text} text-left `}>
-            <Link href={`/[mazad]/[id]`} as={`/mazad/${1}`}>
+            <Link href={`/[mazad]/[id]`} as={`/mazad/${data._id}`}>
               <h1>{data.name}</h1>
             </Link>
 
@@ -40,7 +79,10 @@ const MazadCard = ({ data, upComing }) => {
         </div>
 
         {!upComing ? (
-          <button className="btn master_button mt-1 mb-3 btn-lg btn-block">
+          <button
+            onClick={() => Join(data._id)}
+            className="btn master_button mt-1 mb-3 btn-lg btn-block"
+          >
             Join Auction
           </button>
         ) : (
