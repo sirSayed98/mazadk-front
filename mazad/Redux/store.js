@@ -12,7 +12,7 @@ import {
   merchantRegisterReducer,
   requestListReducer,
 } from "./reducers/userReducer";
-import { SingleMazadReducer } from "./reducers/mazadReducer";
+import { MazadReducer } from "./reducers/mazadReducer";
 
 import Cookies from "js-cookie";
 
@@ -25,7 +25,7 @@ const reducer = combineReducers({
   userRest: userResetPasswordReducer,
   merchantRequest: merchantRegisterReducer,
   requestList: requestListReducer,
-  Mazad: SingleMazadReducer,
+  Mazad: MazadReducer,
 });
 
 const userInfoFromStorage = Cookies.get("token")

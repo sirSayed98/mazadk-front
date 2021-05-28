@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import CardComponent from "../MazadCard/MazadCard";
 import style from "./CardsContainer.module.css";
-import { HomeCurrentMazads } from "../../Redux/actions/mazadActions";
+import {
+  HomeCurrentMazads,
+  HomeUpComingMazads,
+} from "../../Redux/actions/mazadActions";
 
 const CardContainer = () => {
   const dispatch = useDispatch();
@@ -11,9 +14,10 @@ const CardContainer = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const { homeNowMazads } = useSelector((state) => state.Mazad);
+  const { homeNowMazads, homeUpComing } = useSelector((state) => state.Mazad);
   useEffect(() => {
     dispatch(HomeCurrentMazads());
+    dispatch(HomeUpComingMazads());
   }, [userInfo]);
 
   return (
@@ -24,8 +28,7 @@ const CardContainer = () => {
           padding: "10px",
         }}
       >
-        {/* <button onClick={() => console.log(homeNowMazads)}>Test</button> */}
-
+        <h1 className="display-4 ml-4 mt-4 mb-3">Auctions Now</h1>
         <div
           className={`${style.scrollBar}`}
           style={{
@@ -42,6 +45,36 @@ const CardContainer = () => {
                   }}
                 >
                   <CardComponent data={el} />
+                </div>
+              );
+            })}
+        </div>
+      </div>
+
+      <div
+        style={{
+          overflow: "hidden",
+          padding: "10px",
+        }}
+       
+      >
+        <h1 className="display-4 ml-4 mb-3">Up Coming</h1>
+        <div
+          className={`${style.scrollBar}`}
+          style={{
+            overflow: "auto",
+            display: "flex",
+          }}
+        >
+          {homeUpComing &&
+            homeUpComing.map((el) => {
+              return (
+                <div
+                  style={{
+                    marginRight: "15px",
+                  }}
+                >
+                  <CardComponent data={el} upComing={true} />
                 </div>
               );
             })}

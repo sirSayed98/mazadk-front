@@ -1,8 +1,10 @@
 import React from "react";
+import { GENERAL_HOST } from "../../Redux/constants/General";
+
 import Link from "next/link";
 import style from "./MazadCard.module.css";
-import { GENERAL_HOST } from "../../Redux/constants/General";
-const MazadCard = ({ data }) => {
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+const MazadCard = ({ data, upComing }) => {
   return (
     <>
       <div className={`${style.mazad_container}`}>
@@ -37,9 +39,18 @@ const MazadCard = ({ data }) => {
           </div>
         </div>
 
-        <button className="btn master_button mt-3 mb-3 btn-lg btn-block">
-          Join Auction
-        </button>
+        {!upComing ? (
+          <button className="btn master_button mt-1 mb-3 btn-lg btn-block">
+            Join Auction
+          </button>
+        ) : (
+          <button className="btn interest_button mt-1 mb-3 btn-lg btn-block">
+            <NotificationsActiveIcon
+              style={{ transform: "translate(-5px,4px)" }}
+            />{" "}
+            Interest
+          </button>
+        )}
       </div>
     </>
   );

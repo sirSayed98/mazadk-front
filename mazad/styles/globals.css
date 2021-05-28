@@ -34,6 +34,13 @@ a:hover {
   font-weight: 600;
   text-transform: uppercase;
 }
+.interest_button {
+  background-color: var(--color2);
+  color: var(--color1);
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
 
 .card_container {
   display: flex;
@@ -116,4 +123,3 @@ a:hover {
   background: linear-gradient(45deg, #707cff 0%, #fa81e8 100%);
   box-shadow: 0 5px 20px rgba(250, 129, 232, 0.3);
 }
-
