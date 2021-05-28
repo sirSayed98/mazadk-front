@@ -10,10 +10,12 @@ import {
   UP_COMING_MAZADS,
   JOIN_MAZAD,
   BID_NOW,
+  GET_MAZADS,
 } from "../constants/mazadConstants/endPoints";
 
 import {
   GET_MAZAD_SUCCESS,
+  GET_MAZADS_SUCCESS,
   GET_HOME_AUCTION_NOW_SUCCESS,
   GET_HOME_AUCTION_UP_COMING_SUCCESS,
 } from "../constants/mazadConstants/types";
@@ -210,6 +212,59 @@ export const BidNow = (id, newVal) => async (dispatch) => {
         reject(
           error.response && error.response.data.Message
             ? error.response.data.Message
+            : error.response
+        );
+      });
+  });
+};
+
+export const GetMazads = () => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GET_MAZADS, config)
+      .then((res) => {
+        console.log(res.data.data);
+        dispatch({
+          type: GET_MAZADS_SUCCESS,
+          payload: res.data.data,
+        });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const DeleteMazad = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(SINGLE_MAZAD + `/${id}`, config)
+      .then((res) => {
+        console.log(res.data.data);
+        resolve("done");
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
             : error.response
         );
       });

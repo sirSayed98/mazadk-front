@@ -1,5 +1,6 @@
 import {
   GET_MAZAD_SUCCESS,
+  GET_MAZADS_SUCCESS,
   UPDATE_MAZAD_SUCCESS,
   GET_HOME_AUCTION_NOW_SUCCESS,
   GET_HOME_AUCTION_UP_COMING_SUCCESS,
@@ -17,6 +18,11 @@ export const MazadReducer = (state = {}, action) => {
       return {
         ...state,
         homeUpComing: action.payload,
+      };
+    case GET_MAZADS_SUCCESS:
+      return {
+        ...state,
+        Mazads: action.payload,
       };
     default:
       return state;

@@ -165,6 +165,7 @@ const EditMazadScreen = ({ id }) => {
                   variant="outlined"
                   InputProps={{ inputProps: { minLength: 3, maxLength: 30 } }}
                   name="name"
+                  disabled={TimeNow() > data.start_time}
                   value={data && data.name}
                   onChange={onChange}
                 />
@@ -178,6 +179,7 @@ const EditMazadScreen = ({ id }) => {
                   InputProps={{ inputProps: { minLength: 8, maxLength: 50 } }}
                   name="describtion"
                   onChange={onChange}
+                  disabled={TimeNow() > data.start_time}
                   value={data && data.describtion}
                 />
                 <TextField
@@ -194,6 +196,7 @@ const EditMazadScreen = ({ id }) => {
                   }}
                   name="start_price"
                   onChange={onChange}
+                  disabled={TimeNow() > data.start_time}
                   value={data && data.start_price}
                 />
                 <TextField
@@ -210,6 +213,7 @@ const EditMazadScreen = ({ id }) => {
                   }}
                   name="market_price"
                   onChange={onChange}
+                  disabled={TimeNow() > data.start_time}
                   value={data && data.market_price}
                 />
                 <TextField
@@ -227,6 +231,7 @@ const EditMazadScreen = ({ id }) => {
                   name="increased_value"
                   onChange={onChange}
                   value={data && data.increased_value}
+                  disabled={TimeNow() > data.start_time}
                 />
                 <TextField
                   label="Expected Price"
@@ -242,6 +247,7 @@ const EditMazadScreen = ({ id }) => {
                   }}
                   name="expected_price"
                   onChange={onChange}
+                  disabled={TimeNow() > data.start_time}
                   value={data && data.expected_price}
                 />
                 <TextField
@@ -252,6 +258,7 @@ const EditMazadScreen = ({ id }) => {
                   className="mb-3"
                   name="start_time"
                   onChange={onChange}
+                  disabled={TimeNow() > data.start_time}
                   value={data && data.start_time}
                 />
                 <TextField
@@ -262,11 +269,12 @@ const EditMazadScreen = ({ id }) => {
                   className="mb-5"
                   name="end_time"
                   onChange={onChange}
+                  disabled={TimeNow() > data.start_time}
                   value={data && data.end_time}
                 />
                 <div className="d-flex justify-content-center">
                   <button
-                    disabled={loading}
+                    disabled={loading || TimeNow() > data.start_time}
                     className={`master_button btn btn-lg btn-block mb-5`}
                   >
                     Edit

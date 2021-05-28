@@ -20,6 +20,8 @@ import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import HelpIcon from "@material-ui/icons/Help";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
+import GavelIcon from '@material-ui/icons/Gavel';
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 const useStyles = makeStyles({
@@ -174,6 +176,25 @@ export default function TemporaryDrawer() {
           <Divider />
         </>
       )}
+      {userInfo && (userInfo.role === "merchant" || userInfo.role === "admin") && (
+        <>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <GavelIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Link as={`/Mazads`} href={`/Mazads`}>
+                 Mazads
+                </Link>
+              </ListItemText>
+            </ListItem>
+          </List>
+          <Divider />
+        </>
+      )}
+
       {userInfo && (
         <>
           <Divider />
