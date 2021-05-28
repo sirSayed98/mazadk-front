@@ -9,6 +9,7 @@ import {
   USER_UP_COMING_MAZADS,
   UP_COMING_MAZADS,
   JOIN_MAZAD,
+  BID_NOW,
 } from "../constants/mazadConstants/endPoints";
 
 import {
@@ -181,6 +182,34 @@ export const JoinMazad = (id) => async (dispatch) => {
         reject(
           error.response && error.response.data.error
             ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const BidNow = (id, newVal) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(BID_NOW + `/${id}`, { newVal }, config)
+      .then((res) => {
+        resolve(res.data.data);
+        dispatch({
+          type: GET_MAZAD_SUCCESS,
+          payload: res.data.data,
+        });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.Message
+            ? error.response.data.Message
             : error.response
         );
       });

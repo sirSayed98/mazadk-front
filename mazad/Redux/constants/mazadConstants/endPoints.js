@@ -13,3 +13,5 @@ export const USER_UP_COMING_MAZADS =
 export const UP_COMING_MAZADS = GENERAL_HOST + "/api/v1/mazads/upcoming_mazads";
 
 export const JOIN_MAZAD = GENERAL_HOST + "/api/v1/mazads/join";
+
+export const BID_NOW = GENERAL_HOST + "/api/v1/mazads/bid";
