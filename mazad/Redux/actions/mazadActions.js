@@ -246,6 +246,10 @@ export const BidNow = (id, newVal) => async (dispatch) => {
         });
       })
       .catch((error) => {
+        dispatch({
+          type: GET_MAZAD_SUCCESS,
+          payload: error.response.data.data,
+        });
         reject(
           error.response && error.response.data.Message
             ? error.response.data.Message

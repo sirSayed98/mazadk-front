@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { GetSingleMazad, BidNow } from "../../Redux/actions/mazadActions";
@@ -11,13 +11,17 @@ const BiddingCard = ({ id }) => {
   const dispatch = useDispatch();
   const { singleMazad: Mazad } = useSelector((state) => state.Mazad);
 
+  const [loading, setLoading] = useState(false);
   const bid = (id) => {
+    setLoading(true);
     dispatch(BidNow(id, Mazad.current_price + Mazad.increased_value))
       .then((res) => {
         popUpMessage("Keep on", "You are the heighest Bidder!", "success");
+        setLoading(false);
       })
       .catch((err) => {
         popUpMessage("Failed", err, "error");
+        setLoading(false);
       });
   };
   useEffect(() => {
@@ -55,6 +59,7 @@ const BiddingCard = ({ id }) => {
                   <button
                     onClick={() => bid(Mazad._id)}
                     className={`${style.btn_Bid} btn`}
+                    disabled={Mazad.finised || loading}
                   >
                     Bid With
                     <span> {Mazad.current_price + Mazad.increased_value}$</span>

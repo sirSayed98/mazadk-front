@@ -1,5 +1,9 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
+import { RelativeDate } from "../utils/GetCurrentTime";
 
+import style from "./ProfileScreen.module.css";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -7,6 +11,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { GENERAL_HOST } from "../../Redux/constants/General";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,6 +70,10 @@ export default function UserTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
+  const { myMazads, interested_mazads, wonMazads } = useSelector(
+    (state) => state.userLogin.userInfo
+  );
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -81,7 +90,7 @@ export default function UserTabs(props) {
         >
           <LinkTab
             className={classes.bc}
-            label="Successful Mazads"
+            label="WON Mazads"
             href="/drafts"
             {...a11yProps(0)}
           />
@@ -91,35 +100,92 @@ export default function UserTabs(props) {
             href="/trash"
             {...a11yProps(1)}
           />
+          <LinkTab
+            className={classes.bc}
+            label="Subscribed Mazads"
+            href="/trash"
+            {...a11yProps(2)}
+          />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        {[1, 2, 3].map((el) => {
-          return (
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item">
-                <div className="d-flex justify-content-between">
-                  <p>Text</p>
-                  <p>Image</p>
-                </div>
-              </li>
-            </ul>
-          );
-        })}
+        {wonMazads &&
+          wonMazads.map((el) => {
+            return (
+              <ul key={el._id} className="list-group list-group-flush">
+                <li className="list-group-item">
+                  <div className="row">
+                    <div className="col d-flex justify-content-center">
+                      <p>{el.name}</p>
+                    </div>
+                    <div className="col d-flex justify-content-center">
+                      <p>{RelativeDate(el.end_time)}</p>
+                    </div>
+                    <div className="col d-flex justify-content-center">
+                      <img
+                        className={`${style.round_img}`}
+                        src={GENERAL_HOST + el.photo}
+                      />
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            );
+          })}
       </TabPanel>
+
       <TabPanel value={value} index={1}>
-        {[1, 2, 3].map((el) => {
-          return (
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item">
-                <div className="d-flex justify-content-between">
-                  <p>Text 2</p>
-                  <p>Image 2</p>
-                </div>
-              </li>
-            </ul>
-          );
-        })}
+        {interested_mazads &&
+          interested_mazads.map((el) => {
+            return (
+              <ul key={el._id} className="list-group list-group-flush">
+                <li className="list-group-item">
+                  <div className="row">
+                    <div className="col d-flex justify-content-center">
+                      <p>{el.name}</p>
+                    </div>
+                    <div className="col d-flex justify-content-center">
+                      <p>{RelativeDate(el.start_time)}</p>
+                    </div>
+                    <div className="col d-flex justify-content-center">
+                      <img
+                        className={`${style.round_img}`}
+                        src={GENERAL_HOST + el.photo}
+                      />
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            );
+          })}
+      </TabPanel>
+
+      <TabPanel value={value} index={2}>
+        {myMazads &&
+          myMazads.map((el) => {
+            return (
+              <ul key={el._id} className="list-group list-group-flush">
+                <Link href={`/mazad/${el._id}`}>
+                  <li className="list-group-item">
+                    <div className="row">
+                      <div className="col d-flex justify-content-center">
+                        <p style={{ textDecoration: "underline" }}>{el.name}</p>
+                      </div>
+                      <div className="col d-flex justify-content-center">
+                        <p>{RelativeDate(el.end_time)}</p>
+                      </div>
+                      <div className="col d-flex justify-content-center">
+                        <img
+                          className={`${style.round_img}`}
+                          src={GENERAL_HOST + el.photo}
+                        />
+                      </div>
+                    </div>
+                  </li>
+                </Link>
+              </ul>
+            );
+          })}
       </TabPanel>
     </div>
   );

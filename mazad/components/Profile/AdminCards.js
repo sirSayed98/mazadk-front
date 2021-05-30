@@ -51,7 +51,7 @@ const AdminCards = () => {
               attribute: "REQUESTS",
             },
             {
-              number: 200,
+              number: data && data.total_Mazads,
               color: "card_blue_green",
               attribute: "MAZAD",
             },
