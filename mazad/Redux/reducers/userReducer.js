@@ -41,6 +41,7 @@ import {
   UPDAT_ME_SUCCESS,
   JOIN_MAZAD_SUCCESS,
   INTEREST_MAZAD_SUCCESS,
+  GET_ME_SUCCESS
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -60,6 +61,8 @@ export const userLoginReducer = (state = {}, action) => {
     case JOIN_MAZAD_SUCCESS:
       return { ...state, userInfo: action.payload };
     case INTEREST_MAZAD_SUCCESS:
+      return { ...state, userInfo: action.payload };
+    case GET_ME_SUCCESS:
       return { ...state, userInfo: action.payload };
 
     default:

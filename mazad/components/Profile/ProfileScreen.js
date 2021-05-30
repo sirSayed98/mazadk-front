@@ -11,8 +11,10 @@ import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 
 import { popUpMessage } from "../utils/sweetAlert";
-import { UpdateMe, UploadPhoto } from "../../Redux/actions/userAction";
+import { UpdateMe, UploadPhoto, getMe } from "../../Redux/actions/userAction";
+
 import { GENERAL_HOST } from "../../Redux/constants/General";
+
 const ProfileScreen = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -49,7 +51,7 @@ const ProfileScreen = () => {
     const formData = new FormData();
     formData.append("image", file);
     dispatch(UploadPhoto(formData, "user"))
-    .then((res) => {
+      .then((res) => {
         popUpMessage("Photo has been updated", "Awesome Pic", "success");
       })
       .catch((err) => {
@@ -63,6 +65,9 @@ const ProfileScreen = () => {
     setData(userInfo);
   }, [userInfo]);
 
+  useEffect(() => {
+    dispatch(getMe());
+  }, []);
   return (
     <>
       <div className={`container`}>

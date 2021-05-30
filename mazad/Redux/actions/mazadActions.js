@@ -13,7 +13,6 @@ import {
   GET_MAZADS,
   INTEREST_MAZAD,
 } from "../constants/mazadConstants/endPoints";
-
 import {
   JOIN_MAZAD_SUCCESS,
   INTEREST_MAZAD_SUCCESS,
@@ -311,3 +310,5 @@ export const DeleteMazad = (id) => async (dispatch) => {
       });
   });
 };
+
+

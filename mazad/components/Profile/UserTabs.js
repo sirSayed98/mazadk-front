@@ -119,7 +119,7 @@ export default function UserTabs(props) {
                       <p>{el.name}</p>
                     </div>
                     <div className="col d-flex justify-content-center">
-                      <p>{RelativeDate(el.end_time)}</p>
+                      <p>{el.end_time && RelativeDate(el.end_time)}</p>
                     </div>
                     <div className="col d-flex justify-content-center">
                       <img
@@ -145,7 +145,7 @@ export default function UserTabs(props) {
                       <p>{el.name}</p>
                     </div>
                     <div className="col d-flex justify-content-center">
-                      <p>{RelativeDate(el.start_time)}</p>
+                      <p>{el.start_time && RelativeDate(el.start_time)}</p>
                     </div>
                     <div className="col d-flex justify-content-center">
                       <img
@@ -172,7 +172,7 @@ export default function UserTabs(props) {
                         <p style={{ textDecoration: "underline" }}>{el.name}</p>
                       </div>
                       <div className="col d-flex justify-content-center">
-                        <p>{RelativeDate(el.end_time)}</p>
+                        <p>{el.end_time && RelativeDate(el.end_time)}</p>
                       </div>
                       <div className="col d-flex justify-content-center">
                         <img

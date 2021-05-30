@@ -10,3 +10,4 @@ export const MERCHANT_REQUEST = GENERAL_HOST + "/api/v1/requests";
 export const MAZAD_STATIST = GENERAL_HOST + "/api/v1/statist/";
 export const USER_UPLOAD = GENERAL_HOST + "/api/v1/upload/user";
 export const MAZAD_UPLOAD = GENERAL_HOST + "/api/v1/upload/mazad";
+export const GET_ME = GENERAL_HOST + "/api/v1/auth/me";
