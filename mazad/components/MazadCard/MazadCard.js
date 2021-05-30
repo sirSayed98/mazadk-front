@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 import { GENERAL_HOST } from "../../Redux/constants/General";
-import { JoinMazad } from "../../Redux/actions/mazadActions";
+import {
+  JoinMazad,
+  InterestMazad,
+  HomeUpComingMazads,
+} from "../../Redux/actions/mazadActions";
 import { popUpMessage } from "../utils/sweetAlert";
 
 import Link from "next/link";
@@ -16,9 +20,11 @@ import withReactContent from "sweetalert2-react-content";
 const MazadCard = ({ data, upComing }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
   const { userInfo } = userLogin;
 
-  const router = useRouter();
   const MySwal = withReactContent(Swal);
 
   const Join = (id) => {
@@ -38,12 +44,34 @@ const MazadCard = ({ data, upComing }) => {
             .catch((err) => {
               popUpMessage("Failed To join", err, "error");
             });
+          dispatch(HomeUpComingMazads());
         }
       });
     } else {
       router.push("/Login");
     }
   };
+  const Interest = (id) => {
+    if (userInfo !== undefined && userInfo !== null) {
+      setLoading(true);
+      dispatch(InterestMazad(data._id))
+        .then((res) => {
+          popUpMessage(
+            "Good Luck!",
+            `Mazad Will start at ${data.start_time}`,
+            "success"
+          );
+          setLoading(false);
+        })
+        .catch((err) => {
+          popUpMessage("Failed", err, "error");
+          setLoading(false);
+        });
+    } else {
+      router.push("/Login");
+    }
+  };
+
   return (
     <>
       <div className={`${style.mazad_container}`}>
@@ -86,7 +114,11 @@ const MazadCard = ({ data, upComing }) => {
             Join Auction
           </button>
         ) : (
-          <button className="btn interest_button mt-1 mb-3 btn-lg btn-block">
+          <button
+            onClick={() => Interest(data._id)}
+            disabled={loading}
+            className="btn interest_button mt-1 mb-3 btn-lg btn-block"
+          >
             <NotificationsActiveIcon
               style={{ transform: "translate(-5px,4px)" }}
             />{" "}

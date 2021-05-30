@@ -11,7 +11,13 @@ import {
   JOIN_MAZAD,
   BID_NOW,
   GET_MAZADS,
+  INTEREST_MAZAD,
 } from "../constants/mazadConstants/endPoints";
+
+import {
+  JOIN_MAZAD_SUCCESS,
+  INTEREST_MAZAD_SUCCESS,
+} from "../constants/userCosntants/types";
 
 import {
   GET_MAZAD_SUCCESS,
@@ -178,7 +184,38 @@ export const JoinMazad = (id) => async (dispatch) => {
       .post(JOIN_MAZAD + `/${id}`, {}, config)
       .then((res) => {
         resolve(res.data.data);
-        console.log(res.data.data);
+        dispatch({
+          type: JOIN_MAZAD_SUCCESS,
+          payload: res.data.data,
+        });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const InterestMazad = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(INTEREST_MAZAD + `/${id}`, {}, config)
+      .then((res) => {
+        resolve("done");
+        dispatch({
+          type: INTEREST_MAZAD_SUCCESS,
+          payload: res.data.data,
+        });
       })
       .catch((error) => {
         reject(

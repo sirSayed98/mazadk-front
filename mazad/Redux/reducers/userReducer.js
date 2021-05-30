@@ -38,7 +38,9 @@ import {
   MERCHANT_GET_REQUESTS_REQUEST,
   MERCHANT_GET_REQUESTS_SUCCESS,
   MERCHANT_GET_REQUESTS_FAIL,
-  UPDAT_ME_SUCCESS
+  UPDAT_ME_SUCCESS,
+  JOIN_MAZAD_SUCCESS,
+  INTEREST_MAZAD_SUCCESS,
 } from "../constants/userCosntants/types";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -55,6 +57,11 @@ export const userLoginReducer = (state = {}, action) => {
       return { ...state, loading: false, success: null, error: null };
     case UPDAT_ME_SUCCESS:
       return { ...state, userInfo: action.payload };
+    case JOIN_MAZAD_SUCCESS:
+      return { ...state, userInfo: action.payload };
+    case INTEREST_MAZAD_SUCCESS:
+      return { ...state, userInfo: action.payload };
+
     default:
       return state;
   }
