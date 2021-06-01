@@ -94,7 +94,7 @@ const MazadCard = ({ data, upComing }) => {
 
             <p className="text-center">{data.describtion}</p>
 
-            <ul className="list-group-flush">
+            <ul  style={{ paddingInlineStart: "0px" }} className="list-group-flush">
               {[
                 {
                   label: upComing ? "Start Price" : "Current Price",

@@ -45,15 +45,39 @@ const BiddingCard = ({ id }) => {
                 />
               </div>
               <div>
-                <div className={`${style.cardHeader} mt-1 text-center`}>
+                <div className={`mt-1 text-center`}>
                   <h3 className="display-5">{Mazad.name}</h3>
                   <h5 className="display-5">{Mazad.describtion}</h5>
-                  <h5 className="display-5">
-                    Latest Bid | <span>${Mazad.current_price}</span>{" "}
-                  </h5>
-                  <h6 className="display-5">
-                    Price Market | <span>${Mazad.market_price}</span>{" "}
-                  </h6>
+                  <ul
+                    style={{ paddingInlineStart: "0px" }}
+                    className="list-group-flush"
+                  >
+                    {[
+                      {
+                        label: "Current Price",
+                        value: Mazad.current_price,
+                      },
+                      {
+                        label: "Expected Price",
+                        value: Mazad.expected_price,
+                      },
+                      {
+                        label: "Start Time",
+                        value: Mazad.start_time,
+                      },
+                      {
+                        label: "End Time",
+                        value: Mazad.end_time,
+                      },
+                    ].map((el) => {
+                      return (
+                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                          {el.label}
+                          <span className="badge">{el.value}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
                 <div className="d-flex justify-content-center mt-4">
                   <button

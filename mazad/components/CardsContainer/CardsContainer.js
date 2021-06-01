@@ -36,7 +36,7 @@ const CardContainer = () => {
             display: "flex",
           }}
         >
-          {homeNowMazads &&
+          {homeNowMazads && homeNowMazads.length > 0 ? (
             homeNowMazads.map((el) => {
               return (
                 <div
@@ -47,7 +47,17 @@ const CardContainer = () => {
                   <CardComponent data={el} />
                 </div>
               );
-            })}
+            })
+          ) : (
+            <div className="text-center mt-5 mb-5 container">
+              <h3 className="text-center display-5">
+                No unsubscribed Mazads available
+              </h3>
+              <h6 className="text-center display-5">
+                Please check Current Mazads in your profile
+              </h6>
+            </div>
+          )}
         </div>
       </div>
 
@@ -56,7 +66,6 @@ const CardContainer = () => {
           overflow: "hidden",
           padding: "10px",
         }}
-       
       >
         <h1 className="display-4 ml-4 mb-3">Up Coming</h1>
         <div
@@ -66,7 +75,7 @@ const CardContainer = () => {
             display: "flex",
           }}
         >
-          {homeUpComing &&
+          {homeUpComing && homeUpComing.length > 0 ? (
             homeUpComing.map((el) => {
               return (
                 <div
@@ -77,7 +86,17 @@ const CardContainer = () => {
                   <CardComponent data={el} upComing={true} />
                 </div>
               );
-            })}
+            })
+          ) : (
+            <div className="text-center mt-5 mb-5 container">
+              <h3 className="text-center display-5">
+                No Up Coming Mazads available
+              </h3>
+              <h6 className="text-center display-5">
+                Please check Interested Mazads in your profile
+              </h6>
+            </div>
+          )}
         </div>
       </div>
     </>
