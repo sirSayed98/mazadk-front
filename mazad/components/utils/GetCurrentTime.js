@@ -8,7 +8,8 @@ export const TimeNow = () => {
 
 export const RelativeDate = (time) => {
   var t = time.split("T");
-  t = time[0].split("-");
+  t = t[0].split("-");
+
 
   var currentDate = new Date()
     .toJSON()
@@ -16,12 +17,14 @@ export const RelativeDate = (time) => {
     .replace(/-/g, "/")
     .split("/");
 
+  console.log(currentDate)  
   var today = moment([
     currentDate[0] * 1,
     currentDate[1] * 1,
     currentDate[2] * 1,
   ]);
   var date = moment([t[0] * 1, t[1] * 1, t[2] * 1]);
+
 
   if (date.from(today) == "Invalid date") {
     return time;

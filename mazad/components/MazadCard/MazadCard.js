@@ -9,7 +9,7 @@ import {
   HomeUpComingMazads,
 } from "../../Redux/actions/mazadActions";
 import { popUpMessage } from "../utils/sweetAlert";
-
+import { RelativeDate } from "../utils/GetCurrentTime";
 import Link from "next/link";
 import style from "./MazadCard.module.css";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
@@ -76,7 +76,9 @@ const MazadCard = ({ data, upComing }) => {
     <>
       <div className={`${style.mazad_container}`}>
         <div className={`${style.mazad_card_body}`}>
-          <div className={`${style.mazad_img_box} mr-2`}>
+          <div
+            className={`${style.mazad_img_box} mr-2 d-flex align-items-center`}
+          >
             <div>
               <img
                 className={`${style.mazad_img}`}
@@ -87,22 +89,39 @@ const MazadCard = ({ data, upComing }) => {
 
           <div className={`${style.mazad_card_text} text-left `}>
             <Link href={`/[mazad]/[id]`} as={`/mazad/${data._id}`}>
-              <h1>{data.name}</h1>
+              <h1 className="text-center">{data.name}</h1>
             </Link>
 
-            <p>{data.describtion}</p>
-            <h6>
-              <span>Market Price :</span>
-              <span>{data.market_price}$</span>
-            </h6>
-            <h6>
-              <span>Expected Price :</span>
-              <span>{data.expected_price}$</span>
-            </h6>
-            <h6>
-              <span>Price Until Now :</span>
-              <span>{data.current_price}$</span>
-            </h6>
+            <p className="text-center">{data.describtion}</p>
+
+            <ul className="list-group-flush">
+              {[
+                {
+                  label: upComing ? "Start Price" : "Current Price",
+                  value: data.current_price,
+                },
+                { label: "Expected Price", value: data.expected_price },
+                {
+                  label: upComing ? "Interested" : "Subscribers",
+                  value: upComing
+                    ? data.interested_subscribers.length
+                    : data.subscribers.length,
+                },
+                {
+                  label: upComing ? "Start Time" : "End Time",
+                  value: RelativeDate(
+                    upComing ? data.start_time : data.end_time
+                  ),
+                },
+              ].map((el) => {
+                return (
+                  <li className="list-group-item d-flex justify-content-between align-items-center">
+                    {el.label}
+                    <span className="badge">{el.value}</span>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
 
