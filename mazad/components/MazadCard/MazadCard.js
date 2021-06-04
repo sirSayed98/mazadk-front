@@ -88,13 +88,14 @@ const MazadCard = ({ data, upComing }) => {
           </div>
 
           <div className={`${style.mazad_card_text} text-left `}>
-            <Link href={`/[mazad]/[id]`} as={`/mazad/${data._id}`}>
-              <h1 className="text-center">{data.name}</h1>
-            </Link>
+            <h1 className="text-center">{data.name}</h1>
 
             <p className="text-center">{data.describtion}</p>
 
-            <ul  style={{ paddingInlineStart: "0px" }} className="list-group-flush">
+            <ul
+              style={{ paddingInlineStart: "0px" }}
+              className="list-group-flush"
+            >
               {[
                 {
                   label: upComing ? "Start Price" : "Current Price",
@@ -129,13 +130,18 @@ const MazadCard = ({ data, upComing }) => {
           <button
             onClick={() => Join(data._id)}
             className="btn master_button mt-1 mb-3 btn-lg btn-block"
+            disabled={
+              loading || userInfo === "merchant" || userInfo === "admin"
+            }
           >
             Join Auction
           </button>
         ) : (
           <button
             onClick={() => Interest(data._id)}
-            disabled={loading}
+            disabled={
+              loading || userInfo === "merchant" || userInfo === "admin"
+            }
             className="btn interest_button mt-1 mb-3 btn-lg btn-block"
           >
             <NotificationsActiveIcon
