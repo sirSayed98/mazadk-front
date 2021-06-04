@@ -32,6 +32,8 @@ import {
   MERCHANT_GET_REQUESTS_FAIL,
   UPDAT_ME_SUCCESS,
   GET_ME_SUCCESS,
+  REST_USER_FLAGS,
+  USER_REGISTER_REST,
 } from "../constants/userCosntants/types";
 import { UPDATE_MAZAD_SUCCESS } from "../constants/mazadConstants/types";
 import {
@@ -48,6 +50,7 @@ import {
   MAZAD_UPLOAD,
   GET_ME,
   MERCHANT_STATIST,
+  VERIFY_EMAIL,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -72,6 +75,12 @@ export const login = (email, password) => async (dispatch) => {
     Cookies.set("userInfo", JSON.stringify(data.user));
     Cookies.set("token", data.token);
   } catch (error) {
+    setTimeout(() => {
+      dispatch({
+        type: REST_USER_FLAGS,
+      });
+    }, 2000);
+
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
@@ -89,34 +98,27 @@ export const logout = () => (dispatch) => {
   //dispatch({ type: USER_DETAILS_RESET });
 };
 export const Register = (data) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_REGISTER_REQUEST,
-    });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+  return new Promise((resolve, reject) => {
+    axios
+      .post(USER_REGISTER, data, config)
+      .then((res) => {
+        resolve("done");
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
 
-    const res = await axios.post(USER_REGISTER, data, config);
-
-    console.log(res.data.user);
-
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: res.data.user,
-    });
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.response,
-    });
-  }
 };
 
 export const GetUserList = () => async (dispatch) => {
@@ -485,6 +487,37 @@ export const getMe = () => async (dispatch) => {
           type: GET_ME_SUCCESS,
           payload: res.data.data,
         });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const VerifyEmail = (token) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .put(VERIFY_EMAIL + `/${token}`, config)
+      .then((res) => {
+        resolve("done");
+        console.log("__________RESDATA___________");
+        console.log(res.data.user);
+        dispatch({
+          type: USER_LOGIN_SUCCESS,
+          payload: res.data.user,
+        });
+        Cookies.set("userInfo", JSON.stringify(res.data.user));
+        Cookies.set("token", res.data.token);
       })
       .catch((error) => {
         reject(

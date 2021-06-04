@@ -16,8 +16,7 @@ const UserForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo, success } = userRegister;
+  const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -41,7 +40,21 @@ const UserForm = () => {
     if (password !== confirmPassword) {
       setConfirmPasswordErr("Password and Confirm Password must be matched");
     } else {
-      dispatch(Register(data));
+      setLoading(true);
+      dispatch(Register(data))
+        .then((res) => {
+          popUpMessage(
+            "Welcome To Mazadk",
+            "Please verify your mail!",
+            "success"
+          );
+          router.push("/confirmEmail");
+          setLoading(false);
+        })
+        .catch((err) => {
+          setLoading(false);
+          popUpMessage("Error", err, "error");
+        });
     }
   };
 
@@ -63,15 +76,6 @@ const UserForm = () => {
       setData({ ...data, [e.target.name]: e.target.value });
     }
   };
-
-  useEffect(() => {
-    if (error !== false && error !== undefined) {
-      popUpMessage("Error", error, "error");
-    } else if (success) {
-      popUpMessage("Welcome To Mazadk", "Please verify your mail!", "success");
-      router.push("/confirmEmail");
-    }
-  }, [error, success]);
 
   return (
     <>
