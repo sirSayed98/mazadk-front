@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import UserTabs from "./UserTabs";
 import AdminCards from "./AdminCards";
+import MerchantCards from "./MerchantCards";
 
 import style from "./ProfileScreen.module.css";
 import EditIcon from "@material-ui/icons/Edit";
@@ -194,6 +195,11 @@ const ProfileScreen = () => {
               {userInfo && userInfo.role === "admin" && (
                 <div className="mt-5 container">
                   <AdminCards />
+                </div>
+              )}
+              {userInfo && userInfo.role === "merchant" && (
+                <div className="mt-5 container">
+                  <MerchantCards />
                 </div>
               )}
             </div>

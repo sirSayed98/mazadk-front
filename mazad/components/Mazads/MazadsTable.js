@@ -57,7 +57,7 @@ export default function MazadsTable() {
           <TableRow>
             {[
               "Mazad Name",
-              "Merchant",
+              "Merchant Email",
               "Start Date",
               "End Date",
               "Operations",
@@ -79,7 +79,6 @@ export default function MazadsTable() {
             <TableCell align={"center"}></TableCell>
             <TableCell align={"center"}></TableCell>
           </>
-
           {Mazads &&
             Mazads.map((row) => (
               <TableRow key={row._id}>
@@ -89,7 +88,7 @@ export default function MazadsTable() {
                   </TableCell>
                 </Link>
 
-                <TableCell align={"center"}>{row.merchant}</TableCell>
+                <TableCell align={"center"}>{row.merchant.email}</TableCell>
                 <TableCell align={"center"}>{row.start_time}</TableCell>
                 <TableCell align={"center"}>{row.end_time}</TableCell>
                 <TableCell align={"center"}>

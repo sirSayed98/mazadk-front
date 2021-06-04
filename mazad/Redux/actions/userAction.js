@@ -31,7 +31,7 @@ import {
   MERCHANT_GET_REQUESTS_SUCCESS,
   MERCHANT_GET_REQUESTS_FAIL,
   UPDAT_ME_SUCCESS,
-  GET_ME_SUCCESS
+  GET_ME_SUCCESS,
 } from "../constants/userCosntants/types";
 import { UPDATE_MAZAD_SUCCESS } from "../constants/mazadConstants/types";
 import {
@@ -46,7 +46,8 @@ import {
   MAZAD_STATIST,
   USER_UPLOAD,
   MAZAD_UPLOAD,
-  GET_ME
+  GET_ME,
+  MERCHANT_STATIST,
 } from "../constants/userCosntants/endPoints";
 
 export const login = (email, password) => async (dispatch) => {
@@ -390,6 +391,31 @@ export const STATISTICS = () => async (dispatch) => {
   return new Promise((resolve, reject) => {
     axios
       .get(MAZAD_STATIST, config)
+      .then((res) => {
+        console.log(res.data.data);
+        resolve(res.data.data);
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};
+
+export const MerchantStats = () => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(MERCHANT_STATIST, config)
       .then((res) => {
         console.log(res.data.data);
         resolve(res.data.data);
