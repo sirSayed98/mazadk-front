@@ -41,7 +41,8 @@ export default function RequestsTable() {
     dispatch(DealRequests(id, { accepted: decision }))
       .then((el) => {
         dispatch(MerchantGetRequests());
-        popUpMessage("Done", "New Merchant Created", "success");
+        if (decision) popUpMessage("Done", "New Merchant Created", "success");
+        else popUpMessage("Done", "Refuse request", "success");
         setLoading(false);
       })
       .catch((error) => {

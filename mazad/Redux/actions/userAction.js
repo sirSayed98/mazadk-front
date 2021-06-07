@@ -118,7 +118,6 @@ export const Register = (data) => async (dispatch) => {
         );
       });
   });
-
 };
 
 export const GetUserList = () => async (dispatch) => {
@@ -268,34 +267,27 @@ export const EditUser = (data, id) => async (dispatch) => {
 };
 
 export const MerchantRequest = (data) => async (dispatch) => {
-  try {
-    dispatch({
-      type: MERCHANT_REGISTER_REQUEST,
-    });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const res = await axios.post(MERCHANT_REQUEST, data, config);
-
-    console.log(res.data);
-
-    dispatch({
-      type: MERCHANT_REGISTER_SUCCESS,
-    });
-  } catch (error) {
-    console.log(error);
-    dispatch({
-      type: MERCHANT_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.response,
-    });
-  }
+  return new Promise((resolve, reject) => {
+    axios
+      .post(MERCHANT_REQUEST, data, config)
+      .then((res) => {
+        resolve("done");
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        reject(
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.response
+        );
+      });
+  });
 };
 
 export const MerchantGetRequests = () => async (dispatch) => {

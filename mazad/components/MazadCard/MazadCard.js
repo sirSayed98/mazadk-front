@@ -131,7 +131,9 @@ const MazadCard = ({ data, upComing }) => {
             onClick={() => Join(data._id)}
             className="btn master_button mt-1 mb-3 btn-lg btn-block"
             disabled={
-              loading || userInfo === "merchant" || userInfo === "admin"
+              loading ||
+              (userInfo && userInfo.role === "merchant") ||
+              (userInfo && userInfo.role === "admin")
             }
           >
             Join Auction
@@ -140,7 +142,9 @@ const MazadCard = ({ data, upComing }) => {
           <button
             onClick={() => Interest(data._id)}
             disabled={
-              loading || userInfo === "merchant" || userInfo === "admin"
+              loading ||
+              (userInfo && userInfo.role === "merchant") ||
+              (userInfo && userInfo.role === "admin")
             }
             className="btn interest_button mt-1 mb-3 btn-lg btn-block"
           >

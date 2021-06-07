@@ -28,7 +28,7 @@ const Users = () => {
         <>
           <Navbar />
           <div className="container">
-            <UsersFilter />
+            {/* <UsersFilter /> */}
             <div className="col-sm-12 mt-4">
               <UsersTable />
             </div>

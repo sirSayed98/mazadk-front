@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 const MerchantForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     companyName: "",
     phone: "",
@@ -16,25 +17,26 @@ const MerchantForm = () => {
     describtion: "",
   });
 
-  const merchantReq = useSelector((state) => state.merchantRequest);
-  const { loading, error, success } = merchantReq;
-
   const onChange = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     console.log(data);
-    dispatch(MerchantRequest(data));
+    dispatch(MerchantRequest(data))
+      .then((res) => {
+        popUpMessage(
+          "Your Request has been submitted",
+          "We wil send you an email to inform you!",
+          "success"
+        );
+      })
+      .catch((error) => {
+        popUpMessage("Error", error, "error");
+      });
+    setLoading(false);
   };
 
-  useEffect(() => {
-    if (error !== false && error !== undefined) {
-      popUpMessage("Error", error, "error");
-    } else if (success) {
-      popUpMessage("Your Request has been submitted", "We wil send you an email to inform you!", "success");
-      router.push("/");
-    }
-  }, [error, success]);
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="on">
