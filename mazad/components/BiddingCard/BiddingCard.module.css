@@ -2,6 +2,19 @@
   background-color: white;
   border-radius: 10px;
 }
+
+@media only screen and (max-width: 600px) {
+  .cardContainer {
+    width: 300px;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  .cardContainer {
+    width: 400px;
+  }
+}
+
 .imgCard {
   width: 139px;
   height: 160px;
@@ -11,7 +24,7 @@
   padding: 10px 25px;
   font-weight: 500;
   text-transform: uppercase;
-  background-color:  #1e242d;
+  background-color: #1e242d;
   color: yellow;
   border-radius: 10px;
 }

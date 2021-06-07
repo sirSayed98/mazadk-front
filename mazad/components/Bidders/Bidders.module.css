@@ -1,0 +1,25 @@
+.rounded {
+  border-radius: 50%;
+}
+.highBidderImg {
+  height: 150px;
+}
+.Bidder {
+  height: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+  .grid_container {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  .grid_container {
+    display: grid;
+    justify-content:space-between ;
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

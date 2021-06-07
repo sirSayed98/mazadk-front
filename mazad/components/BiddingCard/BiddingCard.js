@@ -35,7 +35,7 @@ const BiddingCard = ({ id }) => {
       {Mazad && (
         <div className={`${style.biddingContainer} containner`}>
           <div className="d-flex justify-content-center mt-5">
-            <div className={`${style.cardContainer}`}>
+            <div className={`${style.cardContainer} mb-5`}>
               <div
                 className={`${style.imgBox}  d-flex justify-content-center mt-4`}
               >
@@ -82,7 +82,7 @@ const BiddingCard = ({ id }) => {
                 <div className="d-flex justify-content-center mt-4">
                   <button
                     onClick={() => bid(Mazad._id)}
-                    className={`${style.btn_Bid} btn`}
+                    className={`${style.btn_Bid} btn mb-3`}
                     disabled={Mazad.finised || loading}
                   >
                     Bid With

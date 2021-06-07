@@ -17,6 +17,7 @@ const userModal = (props) => {
     name: "",
     phone: "",
     address: "",
+    role:"",
     email: "",
   });
 
@@ -68,6 +69,18 @@ const userModal = (props) => {
                 InputProps={{ inputProps: { minLength: 3, maxLength: 20 } }}
                 name="name"
                 value={user.name}
+                onChange={onChange}
+              />
+              <TextField
+                label="Name"
+                fullWidth
+                required
+                type="text"
+                className="mb-3"
+                variant="outlined"
+                InputProps={{ inputProps: { minLength: 3, maxLength: 20 } }}
+                name="role"
+                value={user.role}
                 onChange={onChange}
               />
               <TextField
