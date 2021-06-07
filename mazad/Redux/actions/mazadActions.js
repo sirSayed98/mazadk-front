@@ -12,6 +12,7 @@ import {
   BID_NOW,
   GET_MAZADS,
   INTEREST_MAZAD,
+  GET_CONTACTS,
 } from "../constants/mazadConstants/endPoints";
 import {
   JOIN_MAZAD_SUCCESS,
@@ -23,6 +24,7 @@ import {
   GET_MAZADS_SUCCESS,
   GET_HOME_AUCTION_NOW_SUCCESS,
   GET_HOME_AUCTION_UP_COMING_SUCCESS,
+  GET_CONTACT_SUCCESS,
 } from "../constants/mazadConstants/types";
 export const CreateMazad = (data) => async (dispatch) => {
   const config = {
@@ -311,4 +313,28 @@ export const DeleteMazad = (id) => async (dispatch) => {
   });
 };
 
-
+export const getContact = () => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .get(GET_CONTACTS, config)
+      .then((res) => {
+        dispatch({
+          type: GET_CONTACT_SUCCESS,
+          payload: res.data.data,
+        });
+      })
+      .catch((error) => {
+        reject(
+          error.response && error.response.data.error
+            ? error.response.data.error
+            : error.response
+        );
+      });
+  });
+};

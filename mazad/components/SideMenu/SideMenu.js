@@ -20,7 +20,8 @@ import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import HelpIcon from "@material-ui/icons/Help";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
-import GavelIcon from '@material-ui/icons/Gavel';
+import GavelIcon from "@material-ui/icons/Gavel";
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -174,6 +175,19 @@ export default function TemporaryDrawer() {
             </ListItem>
           </List>
           <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <PermContactCalendarIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <Link as={`/Contact_Winners`} href={`/Contact_Winners`}>
+                  Contact Winners
+                </Link>
+              </ListItemText>
+            </ListItem>
+          </List>
+          <Divider />
         </>
       )}
       {userInfo && (userInfo.role === "merchant" || userInfo.role === "admin") && (
@@ -186,7 +200,7 @@ export default function TemporaryDrawer() {
               </ListItemIcon>
               <ListItemText>
                 <Link as={`/Mazads`} href={`/Mazads`}>
-                 Mazads
+                  Mazads
                 </Link>
               </ListItemText>
             </ListItem>

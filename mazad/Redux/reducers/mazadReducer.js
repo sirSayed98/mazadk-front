@@ -4,6 +4,7 @@ import {
   UPDATE_MAZAD_SUCCESS,
   GET_HOME_AUCTION_NOW_SUCCESS,
   GET_HOME_AUCTION_UP_COMING_SUCCESS,
+  GET_CONTACT_SUCCESS,
 } from "../constants/mazadConstants/types";
 
 export const MazadReducer = (state = {}, action) => {
@@ -23,6 +24,11 @@ export const MazadReducer = (state = {}, action) => {
       return {
         ...state,
         Mazads: action.payload,
+      };
+    case GET_CONTACT_SUCCESS:
+      return {
+        ...state,
+        Contacts: action.payload,
       };
     default:
       return state;

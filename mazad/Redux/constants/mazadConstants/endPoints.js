@@ -19,3 +19,5 @@ export const INTEREST_MAZAD = GENERAL_HOST + "/api/v1/mazads/interest";
 export const BID_NOW = GENERAL_HOST + "/api/v1/mazads/bid";
 
 export const GET_MAZADS = GENERAL_HOST + "/api/v1/mazads";
+
+export const GET_CONTACTS = GENERAL_HOST + "/api/v1/mazads/contact_winners";
