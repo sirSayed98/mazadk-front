@@ -28,5 +28,6 @@
     "sweetalert2": "^10.16.6",
     "sweetalert2-react-content": "^3.3.2",
     "swiper": "^6.5.9"
-  }
+  },
+  "devDependencies": {}
 }

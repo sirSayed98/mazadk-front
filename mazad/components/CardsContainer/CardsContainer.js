@@ -40,6 +40,7 @@ const CardContainer = () => {
             homeNowMazads.map((el) => {
               return (
                 <div
+                  key={el._id}
                   style={{
                     marginRight: "15px",
                   }}

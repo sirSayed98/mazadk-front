@@ -251,6 +251,8 @@ export const BidNow = (id, newVal) => async (dispatch) => {
           type: GET_MAZAD_SUCCESS,
           payload: error.response.data.data,
         });
+        console.log("_________");
+        console.log(error.response);
         reject(
           error.response && error.response.data.Message
             ? error.response.data.Message

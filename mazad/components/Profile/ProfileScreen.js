@@ -78,12 +78,14 @@ const ProfileScreen = () => {
               <div className={`${style.imgBox} mt-4 mb-3`}>
                 {userInfo && (
                   <img
+                    alt="image"
                     className={`${style.userImg}`}
                     src={
                       update
-                        ? URL.createObjectURL(newProfile)
-                        : GENERAL_HOST + userInfo.photo
+                      ? URL.createObjectURL(newProfile)
+                      : GENERAL_HOST + userInfo.photo
                     }
+                    // onerror={(src = "./default.png")}
                     onClick={() =>
                       document.getElementById("profile_pic").click()
                     }

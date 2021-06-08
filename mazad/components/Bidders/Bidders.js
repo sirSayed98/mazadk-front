@@ -23,7 +23,10 @@ const Bidders = () => {
         {Mazad &&
           Mazad.subscribers.map((el) => {
             return (
-              <div className={`text-center mt-3 mb-3 ${style.cardBidder}`}>
+              <div
+                key={el._id}
+                className={`text-center mt-3 mb-3 ${style.cardBidder}`}
+              >
                 <img
                   className={`${style.rounded} ${style.Bidder}`}
                   src={GENERAL_HOST + el.photo}

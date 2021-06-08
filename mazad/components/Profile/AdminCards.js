@@ -17,13 +17,13 @@ const AdminCards = () => {
 
   return (
     <>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col text-center mb-5">
-            <h1 class="mb-2 display-4">MAZADK STATISTICS</h1>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col text-center mb-5">
+            <h1 className="mb-2 display-4">MAZADK STATISTICS</h1>
           </div>
         </div>
-        <div class="row mb-5">
+        <div className="row mb-5">
           {[
             {
               number: data && data.users,
@@ -57,10 +57,10 @@ const AdminCards = () => {
             },
           ].map((el) => {
             return (
-              <div class="col-12 col-sm-6 col-md-6 mb-3">
-                <div class={`${style.card} ${el.color} text-white`}>
-                  <div class={`${style.card_body} text-center`}>
-                    <div class="card-number">
+              <div className="col-12 col-sm-6 col-md-6 mb-3">
+                <div className={`${style.card} ${el.color} text-white`}>
+                  <div className={`${style.card_body} text-center`}>
+                    <div className="card-number">
                       <small className="text-center">
                         <strong>{el.number}</strong>
                       </small>

@@ -70,123 +70,137 @@ export default function UserTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
-  const { myMazads, interested_mazads, wonMazads } = useSelector(
-    (state) => state.userLogin.userInfo
-  );
+  //const { myMazads, interested_mazads, wonMazads } ;
+  const { userMazads } = useSelector((state) => state.MyMazads);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  //props.id ->userID
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs
-          variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-        >
-          <LinkTab
-            className={classes.bc}
-            label="WON Mazads"
-            href="/drafts"
-            {...a11yProps(0)}
-          />
-          <LinkTab
-            className={classes.bc}
-            label="Interested Mazads"
-            href="/trash"
-            {...a11yProps(1)}
-          />
-          <LinkTab
-            className={classes.bc}
-            label="Subscribed Mazads"
-            href="/trash"
-            {...a11yProps(2)}
-          />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        {wonMazads &&
-          wonMazads.map((el) => {
-            return (
-              <ul key={el._id} className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <div className="row">
-                    <div className="col d-flex justify-content-center">
-                      <p>{el.name}</p>
-                    </div>
-                    <div className="col d-flex justify-content-center">
-                      <p>{el.end_time && RelativeDate(el.end_time)}</p>
-                    </div>
-                    <div className="col d-flex justify-content-center">
-                      <img
-                        className={`${style.round_img}`}
-                        src={GENERAL_HOST + el.photo}
-                      />
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            );
-          })}
-      </TabPanel>
+    <>
+      {userMazads && (
+        <>
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Tabs
+                variant="fullWidth"
+                value={value}
+                onChange={handleChange}
+                aria-label="nav tabs example"
+              >
+                <LinkTab
+                  className={classes.bc}
+                  label="WON Mazads"
+                  href="/drafts"
+                  {...a11yProps(0)}
+                />
+                <LinkTab
+                  className={classes.bc}
+                  label="Interested Mazads"
+                  href="/trash"
+                  {...a11yProps(1)}
+                />
+                <LinkTab
+                  className={classes.bc}
+                  label="Subscribed Mazads"
+                  href="/trash"
+                  {...a11yProps(2)}
+                />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}>
+              {userMazads.wonMazads &&
+                userMazads.wonMazads.map((el) => {
+                  return (
+                    <ul key={el._id} className="list-group list-group-flush">
+                      <li className="list-group-item">
+                        <div className="row">
+                          <div className="col d-flex justify-content-center">
+                            <Typography>{el.name}</Typography>
+                          </div>
+                          <div className="col d-flex justify-content-center">
+                            <Typography>
+                              {el.end_time && RelativeDate(el.end_time)}
+                            </Typography>
+                          </div>
+                          <div className="col d-flex justify-content-center">
+                            <img
+                              className={`${style.round_img}`}
+                              src={GENERAL_HOST + el.photo}
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  );
+                })}
+            </TabPanel>
 
-      <TabPanel value={value} index={1}>
-        {interested_mazads &&
-          interested_mazads.map((el) => {
-            return (
-              <ul key={el._id} className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <div className="row">
-                    <div className="col d-flex justify-content-center">
-                      <p>{el.name}</p>
-                    </div>
-                    <div className="col d-flex justify-content-center">
-                      <p>{el.start_time && RelativeDate(el.start_time)}</p>
-                    </div>
-                    <div className="col d-flex justify-content-center">
-                      <img
-                        className={`${style.round_img}`}
-                        src={GENERAL_HOST + el.photo}
-                      />
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            );
-          })}
-      </TabPanel>
+            <TabPanel value={value} index={1}>
+              {userMazads.interested_mazads &&
+                userMazads.interested_mazads.map((el) => {
+                  return (
+                    <ul key={el._id} className="list-group list-group-flush">
+                      <li className="list-group-item">
+                        <div className="row">
+                          <div className="col d-flex justify-content-center">
+                            <Typography>{el.name}</Typography>
+                          </div>
+                          <div className="col d-flex justify-content-center">
+                            <Typography>
+                              {el.start_time && RelativeDate(el.start_time)}
+                            </Typography>
+                          </div>
+                          <div className="col d-flex justify-content-center">
+                            <img
+                              className={`${style.round_img}`}
+                              src={GENERAL_HOST + el.photo}
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  );
+                })}
+            </TabPanel>
 
-      <TabPanel value={value} index={2}>
-        {myMazads &&
-          myMazads.map((el) => {
-            return (
-              <ul key={el._id} className="list-group list-group-flush">
-                <Link href={`/mazad/${el._id}`}>
-                  <li className="list-group-item">
-                    <div className="row">
-                      <div className="col d-flex justify-content-center">
-                        <p style={{ textDecoration: "underline" }}>{el.name}</p>
-                      </div>
-                      <div className="col d-flex justify-content-center">
-                        <p>{el.end_time && RelativeDate(el.end_time)}</p>
-                      </div>
-                      <div className="col d-flex justify-content-center">
-                        <img
-                          className={`${style.round_img}`}
-                          src={GENERAL_HOST + el.photo}
-                        />
-                      </div>
-                    </div>
-                  </li>
-                </Link>
-              </ul>
-            );
-          })}
-      </TabPanel>
-    </div>
+            <TabPanel value={value} index={2}>
+              {userMazads.myMazads &&
+                userMazads.myMazads.map((el) => {
+                  return (
+                    <ul key={el._id} className="list-group list-group-flush">
+                      <Link href={`/mazad/${el._id}`}>
+                        <li className="list-group-item">
+                          <div className="row">
+                            <div className="col d-flex justify-content-center">
+                              <Typography
+                                style={{ textDecoration: "underline" }}
+                              >
+                                {el.name}
+                              </Typography>
+                            </div>
+                            <div className="col d-flex justify-content-center">
+                              <Typography>
+                                {el.end_time && RelativeDate(el.end_time)}
+                              </Typography>
+                            </div>
+                            <div className="col d-flex justify-content-center">
+                              <img
+                                className={`${style.round_img}`}
+                                src={GENERAL_HOST + el.photo}
+                              />
+                            </div>
+                          </div>
+                        </li>
+                      </Link>
+                    </ul>
+                  );
+                })}
+            </TabPanel>
+          </div>
+        </>
+      )}
+    </>
   );
 }

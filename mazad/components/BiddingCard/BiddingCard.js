@@ -6,7 +6,7 @@ import { popUpMessage } from "../utils/sweetAlert";
 import { GENERAL_HOST } from "../../Redux/constants/General";
 import style from "./BiddingCard.module.css";
 
-
+import { TimeNow } from "../utils/GetCurrentTime";
 
 const BiddingCard = ({ id }) => {
   const dispatch = useDispatch();
@@ -73,7 +73,10 @@ const BiddingCard = ({ id }) => {
                       },
                     ].map((el) => {
                       return (
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                        <li
+                          key={el.label}
+                          className="list-group-item d-flex justify-content-between align-items-center"
+                        >
                           {el.label}
                           <span className="badge">{el.value}</span>
                         </li>
@@ -85,7 +88,9 @@ const BiddingCard = ({ id }) => {
                   <button
                     onClick={() => bid(Mazad._id)}
                     className={`${style.btn_Bid} btn mb-3`}
-                    disabled={Mazad.finished || loading}
+                    disabled={
+                      Mazad.finished || loading || Mazad.end_time < TimeNow()
+                    }
                   >
                     Bid With
                     <span> {Mazad.current_price + Mazad.increased_value}$</span>

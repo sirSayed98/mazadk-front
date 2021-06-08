@@ -11,6 +11,7 @@ import {
   userResetPasswordReducer,
   merchantRegisterReducer,
   requestListReducer,
+  userMazadsReducer,
 } from "./reducers/userReducer";
 import { MazadReducer } from "./reducers/mazadReducer";
 
@@ -26,11 +27,13 @@ const reducer = combineReducers({
   merchantRequest: merchantRegisterReducer,
   requestList: requestListReducer,
   Mazad: MazadReducer,
+  MyMazads: userMazadsReducer,
 });
 
-const userInfoFromStorage = Cookies.get("token")
-  ? JSON.parse(Cookies.get("userInfo"))
-  : null;
+const userInfoFromStorage =
+  Cookies.get("token") && Cookies.get("userInfo")
+    ? JSON.parse(Cookies.get("userInfo"))
+    : null;
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },

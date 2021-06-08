@@ -115,7 +115,10 @@ const MazadCard = ({ data, upComing }) => {
                 },
               ].map((el) => {
                 return (
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
+                  <li
+                    key={el.label}
+                    className="list-group-item d-flex justify-content-between align-items-center"
+                  >
                     {el.label}
                     <span className="badge">{el.value}</span>
                   </li>
