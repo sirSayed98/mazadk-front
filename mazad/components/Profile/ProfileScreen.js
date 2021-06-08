@@ -85,7 +85,10 @@ const ProfileScreen = () => {
                       ? URL.createObjectURL(newProfile)
                       : GENERAL_HOST + userInfo.photo
                     }
-                    // onerror={(src = "./default.png")}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "https://mazadk.vercel.app/default.png";
+                    }}
                     onClick={() =>
                       document.getElementById("profile_pic").click()
                     }

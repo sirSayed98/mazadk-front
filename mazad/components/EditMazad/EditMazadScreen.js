@@ -103,6 +103,10 @@ const EditMazadScreen = ({ id }) => {
             >
               {singleMazad && (
                 <img
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://mazadk.vercel.app/default_mazad.png";
+                }}
                   className={`${style.mazadPhoto}`}
                   src={
                     update

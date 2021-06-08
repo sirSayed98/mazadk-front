@@ -80,6 +80,10 @@ const MazadCard = ({ data, upComing }) => {
           >
             <div>
               <img
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://mazadk.vercel.app/default_mazad.png";
+              }}
                 className={`${style.mazad_img}`}
                 src={GENERAL_HOST + data.photo}
               />

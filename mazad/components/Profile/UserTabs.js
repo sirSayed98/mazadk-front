@@ -126,6 +126,10 @@ export default function UserTabs(props) {
                           </div>
                           <div className="col d-flex justify-content-center">
                             <img
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "https://mazadk.vercel.app/default_mazad.png";
+                            }}
                               className={`${style.round_img}`}
                               src={GENERAL_HOST + el.photo}
                             />
@@ -154,6 +158,10 @@ export default function UserTabs(props) {
                           </div>
                           <div className="col d-flex justify-content-center">
                             <img
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "https://mazadk.vercel.app/default_mazad.png";
+                            }}
                               className={`${style.round_img}`}
                               src={GENERAL_HOST + el.photo}
                             />
@@ -187,6 +195,10 @@ export default function UserTabs(props) {
                             </div>
                             <div className="col d-flex justify-content-center">
                               <img
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "https://mazadk.vercel.app/default_mazad.png";
+                              }}
                                 className={`${style.round_img}`}
                                 src={GENERAL_HOST + el.photo}
                               />

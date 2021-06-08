@@ -43,6 +43,10 @@ const BiddingCard = ({ id }) => {
               >
                 <img
                   className={`${style.imgCard} d-block`}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://mazadk.vercel.app/default_mazad.png";
+                  }}
                   src={GENERAL_HOST + Mazad.photo}
                 />
               </div>

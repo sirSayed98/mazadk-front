@@ -12,6 +12,10 @@ const Bidders = () => {
         <div className="d-flex justify-content-center">
           <div className={`${style.highestBidder} text-center`}>
             <img
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://mazadk.vercel.app/default.png";
+            }}
               className={`${style.rounded} ${style.highBidderImg}`}
               src={GENERAL_HOST + Mazad.higher_bidder.photo}
             />
@@ -28,6 +32,10 @@ const Bidders = () => {
                 className={`text-center mt-3 mb-3 ${style.cardBidder}`}
               >
                 <img
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://mazadk.vercel.app/default.png";
+                  }}
                   className={`${style.rounded} ${style.Bidder}`}
                   src={GENERAL_HOST + el.photo}
                 />
