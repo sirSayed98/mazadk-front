@@ -30,18 +30,20 @@ const Navbar = () => {
 
         {!userInfo && (
           <div className={`${style.buttons_box}`}>
-            <button className={`${style.register_button} btn btn_master mr-3`}>
-              {" "}
-              <Link as={`/Register`} href={`/Register`}>
+            <Link as={`/Register`} href={`/Register`}>
+              <button
+                className={`${style.register_button} btn btn_master mr-3`}
+              >
+                {" "}
                 Register
-              </Link>{" "}
-            </button>
-            <button className={`${style.login_button} btn btn_master`}>
-              {" "}
-              <Link as={`/Login`} href={`/Login`}>
+              </button>
+            </Link>
+            <Link as={`/Login`} href={`/Login`}>
+              <button className={`${style.login_button} btn btn_master`}>
+                {" "}
                 LOGIN
-              </Link>{" "}
-            </button>
+              </button>
+            </Link>
           </div>
         )}
         {userInfo && (

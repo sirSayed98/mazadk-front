@@ -10,7 +10,6 @@ import {
 } from "../../Redux/actions/mazadActions";
 import { popUpMessage } from "../utils/sweetAlert";
 import { RelativeDate } from "../utils/GetCurrentTime";
-import Link from "next/link";
 import style from "./MazadCard.module.css";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 

@@ -21,7 +21,7 @@ import HelpIcon from "@material-ui/icons/Help";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import GavelIcon from "@material-ui/icons/Gavel";
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -63,27 +63,23 @@ export default function TemporaryDrawer() {
     >
       {!userInfo && (
         <List>
-          <ListItem button>
-            <ListItemIcon>
-              <AddCircleOutlineIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <Link as={`/Register`} href={`/Register`}>
-                Register
-              </Link>
-            </ListItemText>
-          </ListItem>
+          <Link as={`/Register`} href={`/Register`}>
+            <ListItem button>
+              <ListItemIcon>
+                <AddCircleOutlineIcon />
+              </ListItemIcon>
+              <ListItemText>Register</ListItemText>
+            </ListItem>
+          </Link>
 
-          <ListItem button>
-            <ListItemIcon>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <Link as={`/Login`} href={`/Login`}>
-                Login
-              </Link>
-            </ListItemText>
-          </ListItem>
+          <Link as={`/Login`} href={`/Login`}>
+            <ListItem button>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText>Login</ListItemText>
+            </ListItem>
+          </Link>
         </List>
       )}
       <Divider />
@@ -100,29 +96,25 @@ export default function TemporaryDrawer() {
           </List>
           <Divider />
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <PeopleAltIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Link as={`/Users`} href={`/Users`}>
-                  Users
-                </Link>
-              </ListItemText>
-            </ListItem>
+            <Link as={`/Users`} href={`/Users`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PeopleAltIcon />
+                </ListItemIcon>
+                <ListItemText>Users</ListItemText>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <HelpIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Link as={`/Requests`} href={`/Requests`}>
-                  Requests
-                </Link>
-              </ListItemText>
-            </ListItem>
+            <Link as={`/Requests`} href={`/Requests`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <HelpIcon />
+                </ListItemIcon>
+                <ListItemText>Requests</ListItemText>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
         </>
@@ -145,16 +137,14 @@ export default function TemporaryDrawer() {
       {userInfo && (
         <>
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Link as={`/Profile`} href={`/Profile`}>
-                  Profile
-                </Link>
-              </ListItemText>
-            </ListItem>
+            <Link as={`/Profile`} href={`/Profile`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText>Profile</ListItemText>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
         </>
@@ -163,29 +153,25 @@ export default function TemporaryDrawer() {
         <>
           <Divider />
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Link as={`/Create_Mazad`} href={`/Create_Mazad`}>
-                  Create Mazad
-                </Link>
-              </ListItemText>
-            </ListItem>
+            <Link as={`/Create_Mazad`} href={`/Create_Mazad`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <AddIcon />
+                </ListItemIcon>
+                <ListItemText>Create Mazad</ListItemText>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <PermContactCalendarIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Link as={`/Contact_Winners`} href={`/Contact_Winners`}>
-                  Contact Winners
-                </Link>
-              </ListItemText>
-            </ListItem>
+            <Link as={`/Contact_Winners`} href={`/Contact_Winners`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <PermContactCalendarIcon />
+                </ListItemIcon>
+                <ListItemText>Contact Winners</ListItemText>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
         </>
@@ -194,16 +180,14 @@ export default function TemporaryDrawer() {
         <>
           <Divider />
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Link as={`/Mazads`} href={`/Mazads`}>
-                  Mazads
-                </Link>
-              </ListItemText>
-            </ListItem>
+            <Link as={`/Mazads`} href={`/Mazads`}>
+              <ListItem button>
+                <ListItemIcon>
+                  <GavelIcon />
+                </ListItemIcon>
+                <ListItemText>Mazads</ListItemText>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
         </>

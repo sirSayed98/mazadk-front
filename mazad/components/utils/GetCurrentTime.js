@@ -7,6 +7,9 @@ export const TimeNow = () => {
 };
 
 export const RelativeDate = (time) => {
+
+  return time
+  /*
   var t = time.split("T");
   t = t[0].split("-");
 
@@ -30,5 +33,5 @@ export const RelativeDate = (time) => {
     return time;
   } else {
     return date.from(today);
-  }
+  }*/
 };
