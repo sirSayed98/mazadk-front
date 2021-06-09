@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import UsersTable from "../components/UsersTable/UsersTable";
 import Navbar from "../components/Navbar/Navbar";
 import UsersFilter from "../components/usersFilter/usersFilter";
-
+import { Animated } from "react-animated-css";
 const Users = () => {
   const router = useRouter();
 
@@ -30,7 +30,13 @@ const Users = () => {
           <div className="container">
             {/* <UsersFilter /> */}
             <div className="col-sm-12 mt-4">
-              <UsersTable />
+              <Animated
+                animationIn="bounceInLeft"
+                animationOut="fadeOut"
+                isVisible={true}
+              >
+                <UsersTable />
+              </Animated>
             </div>
           </div>
         </>

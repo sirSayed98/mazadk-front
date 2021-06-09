@@ -16,6 +16,8 @@ import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import { Animated } from "react-animated-css";
+
 const MazadCard = ({ data, upComing }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
@@ -73,94 +75,101 @@ const MazadCard = ({ data, upComing }) => {
 
   return (
     <>
-      <div className={`${style.mazad_container}`}>
-        <div className={`${style.mazad_card_body}`}>
-          <div
-            className={`${style.mazad_img_box} mr-2 d-flex align-items-center`}
-          >
-            <div>
-              <img
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://mazadk.vercel.app/default_mazad.png";
-              }}
-                className={`${style.mazad_img}`}
-                src={GENERAL_HOST + data.photo}
-              />
+      <Animated
+        animationIn="bounceInLeft"
+        animationOut="fadeOut"
+        isVisible={true}
+      >
+        <div className={`${style.mazad_container}`}>
+          <div className={`${style.mazad_card_body}`}>
+            <div
+              className={`${style.mazad_img_box} mr-2 d-flex align-items-center`}
+            >
+              <div>
+                <img
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://mazadk.vercel.app/default_mazad.png";
+                  }}
+                  className={`${style.mazad_img}`}
+                  src={GENERAL_HOST + data.photo}
+                />
+              </div>
+            </div>
+
+            <div className={`${style.mazad_card_text} text-left `}>
+              <h1 className="text-center">{data.name}</h1>
+
+              <p className="text-center">{data.describtion}</p>
+
+              <ul
+                style={{ paddingInlineStart: "0px" }}
+                className="list-group-flush"
+              >
+                {[
+                  {
+                    label: upComing ? "Start Price" : "Current Price",
+                    value: data.current_price,
+                  },
+                  { label: "Expected Price", value: data.expected_price },
+                  {
+                    label: upComing ? "Interested" : "Subscribers",
+                    value: upComing
+                      ? data.interested_subscribers.length
+                      : data.subscribers.length,
+                  },
+                  {
+                    label: upComing ? "Start Time" : "End Time",
+                    value: RelativeDate(
+                      upComing ? data.start_time : data.end_time
+                    ),
+                  },
+                ].map((el) => {
+                  return (
+                    <li
+                      key={el.label}
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      {el.label}
+                      <span className="badge">{el.value}</span>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
 
-          <div className={`${style.mazad_card_text} text-left `}>
-            <h1 className="text-center">{data.name}</h1>
-
-            <p className="text-center">{data.describtion}</p>
-
-            <ul
-              style={{ paddingInlineStart: "0px" }}
-              className="list-group-flush"
+          {!upComing ? (
+            <button
+              onClick={() => Join(data._id)}
+              className="btn master_button mt-1 mb-3 btn-lg btn-block"
+              disabled={
+                loading ||
+                (userInfo && userInfo.role === "merchant") ||
+                (userInfo && userInfo.role === "admin")
+              }
             >
-              {[
-                {
-                  label: upComing ? "Start Price" : "Current Price",
-                  value: data.current_price,
-                },
-                { label: "Expected Price", value: data.expected_price },
-                {
-                  label: upComing ? "Interested" : "Subscribers",
-                  value: upComing
-                    ? data.interested_subscribers.length
-                    : data.subscribers.length,
-                },
-                {
-                  label: upComing ? "Start Time" : "End Time",
-                  value: RelativeDate(
-                    upComing ? data.start_time : data.end_time
-                  ),
-                },
-              ].map((el) => {
-                return (
-                  <li
-                    key={el.label}
-                    className="list-group-item d-flex justify-content-between align-items-center"
-                  >
-                    {el.label}
-                    <span className="badge">{el.value}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+              Join Auction
+            </button>
+          ) : (
+            <button
+              onClick={() => Interest(data._id)}
+              disabled={
+                loading ||
+                (userInfo && userInfo.role === "merchant") ||
+                (userInfo && userInfo.role === "admin")
+              }
+              className="btn interest_button mt-1 mb-3 btn-lg btn-block"
+            >
+              <NotificationsActiveIcon
+                style={{ transform: "translate(-5px,4px)" }}
+              />{" "}
+              Interest
+            </button>
+          )}
         </div>
-
-        {!upComing ? (
-          <button
-            onClick={() => Join(data._id)}
-            className="btn master_button mt-1 mb-3 btn-lg btn-block"
-            disabled={
-              loading ||
-              (userInfo && userInfo.role === "merchant") ||
-              (userInfo && userInfo.role === "admin")
-            }
-          >
-            Join Auction
-          </button>
-        ) : (
-          <button
-            onClick={() => Interest(data._id)}
-            disabled={
-              loading ||
-              (userInfo && userInfo.role === "merchant") ||
-              (userInfo && userInfo.role === "admin")
-            }
-            className="btn interest_button mt-1 mb-3 btn-lg btn-block"
-          >
-            <NotificationsActiveIcon
-              style={{ transform: "translate(-5px,4px)" }}
-            />{" "}
-            Interest
-          </button>
-        )}
-      </div>
+      </Animated>
     </>
   );
 };
