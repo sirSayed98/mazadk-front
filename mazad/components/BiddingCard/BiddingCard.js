@@ -9,7 +9,16 @@ import style from "./BiddingCard.module.css";
 import { TimeNow } from "../utils/GetCurrentTime";
 import { Animated } from "react-animated-css";
 
-const BiddingCard = ({ id }) => {
+import Head from "next/head";
+
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import { FacebookIcon, TwitterIcon } from "react-share";
+
+const BiddingCard = ({ id, mazadData }) => {
   const dispatch = useDispatch();
   const { singleMazad: Mazad } = useSelector((state) => state.Mazad);
 
@@ -31,12 +40,31 @@ const BiddingCard = ({ id }) => {
     if (id !== undefined) {
       dispatch(GetSingleMazad(id));
     }
+    console.log(mazadData);
   }, [id]);
 
   return (
     <>
-      {Mazad && (
+      {mazadData && (
+        <Head>
+          <title>{mazadData.name}</title>
+          <meta name="description" content={mazadData.describtion} />
+          <meta property="og:title" content={mazadData.name} />
+          <meta property="og:description" content={mazadData.describtion} />
+          <meta property="og:image" content={GENERAL_HOST + mazadData.photo} />
+        </Head>
+      )}
+      {Mazad && mazadData && (
         <div className={`${style.biddingContainer} containner`}>
+          {/* <FacebookShareButton
+            url={`https://mazadk.vercel.app/mazad/${mazadData.id}`}
+            title={mazadData.name}
+            hashtag={"#mazadk"}
+            description={mazadData.describtion}
+            className="Demo__some-network__share-button"
+          >
+            <FacebookIcon size={32} round />
+          </FacebookShareButton> */}
           <div className="d-flex justify-content-center mt-5">
             <Animated
               animationIn="bounceInLeft"
