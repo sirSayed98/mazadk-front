@@ -8,7 +8,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { TimeNow } from "../utils/GetCurrentTime";
 import { CreateMazad } from "../../Redux/actions/mazadActions";
 import { popUpMessage } from "../utils/sweetAlert";
-
+import { Animated } from "react-animated-css";
 import { useRouter } from "next/router";
 const MazadForm = () => {
   const dispatch = useDispatch();
@@ -73,127 +73,135 @@ const MazadForm = () => {
   };
 
   return (
-    <div>
-      <div className="container">
-        <div className={`${style.formContainer} d-flex justify-content-center`}>
-          <div className={`${style.formBody}`}>
-            <h1 className="text-center display-3">Mazad</h1>
-            <form onSubmit={onSubmit} className="mt-4">
-              <TextField
-                label="Name"
-                fullWidth
-                required
-                type="text"
-                className="mb-3"
-                variant="outlined"
-                InputProps={{ inputProps: { minLength: 3, maxLength: 30 } }}
-                name="name"
-                onChange={onChange}
-              />
-              <TextField
-                label="Describtion"
-                fullWidth
-                required
-                type="text"
-                className="mb-3"
-                variant="outlined"
-                InputProps={{ inputProps: { minLength: 8, maxLength: 50 } }}
-                name="describtion"
-                onChange={onChange}
-              />
-              <TextField
-                label="Start Price"
-                fullWidth
-                required
-                type="number"
-                className="mb-3"
-                variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">L.E</InputAdornment>
-                  ),
-                }}
-                name="start_price"
-                onChange={onChange}
-              />
-              <TextField
-                label="Market Price"
-                fullWidth
-                required
-                type="number"
-                className="mb-3"
-                variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">L.E</InputAdornment>
-                  ),
-                }}
-                name="market_price"
-                onChange={onChange}
-              />
-              <TextField
-                label="Increasing Value"
-                fullWidth
-                required
-                type="number"
-                className="mb-3"
-                variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">L.E</InputAdornment>
-                  ),
-                }}
-                name="increased_value"
-                onChange={onChange}
-              />
-              <TextField
-                label="Expected Price"
-                fullWidth
-                required
-                type="number"
-                className="mb-3"
-                variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">L.E</InputAdornment>
-                  ),
-                }}
-                name="expected_price"
-                onChange={onChange}
-              />
-              <TextField
-                required
-                fullWidth
-                label="Start At"
-                type="datetime-local"
-                className="mb-3"
-                name="start_time"
-                defaultValue={TimeNow()}
-                onChange={onChange}
-              />
-              <TextField
-                required
-                fullWidth
-                label="End At"
-                type="datetime-local"
-                className="mb-5"
-                name="end_time"
-                defaultValue={TimeNow()}
-                onChange={onChange}
-              />
-              <div className="d-flex justify-content-center">
-                <button
-                  disabled={loading}
-                  className={`master_button btn btn-lg mb-5`}
-                >
-                  Create
-                </button>
-              </div>
-            </form>
+    <Animated
+      animationIn="bounceInLeft"
+      animationOut="fadeOut"
+      isVisible={true}
+    >
+      <div>
+        <div className="container">
+          <div
+            className={`${style.formContainer} d-flex justify-content-center`}
+          >
+            <div className={`${style.formBody}`}>
+              <h1 className="text-center display-3">Mazad</h1>
+              <form onSubmit={onSubmit} className="mt-4">
+                <TextField
+                  label="Name"
+                  fullWidth
+                  required
+                  type="text"
+                  className="mb-3"
+                  variant="outlined"
+                  InputProps={{ inputProps: { minLength: 3, maxLength: 30 } }}
+                  name="name"
+                  onChange={onChange}
+                />
+                <TextField
+                  label="Describtion"
+                  fullWidth
+                  required
+                  type="text"
+                  className="mb-3"
+                  variant="outlined"
+                  InputProps={{ inputProps: { minLength: 8, maxLength: 50 } }}
+                  name="describtion"
+                  onChange={onChange}
+                />
+                <TextField
+                  label="Start Price"
+                  fullWidth
+                  required
+                  type="number"
+                  className="mb-3"
+                  variant="outlined"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">L.E</InputAdornment>
+                    ),
+                  }}
+                  name="start_price"
+                  onChange={onChange}
+                />
+                <TextField
+                  label="Market Price"
+                  fullWidth
+                  required
+                  type="number"
+                  className="mb-3"
+                  variant="outlined"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">L.E</InputAdornment>
+                    ),
+                  }}
+                  name="market_price"
+                  onChange={onChange}
+                />
+                <TextField
+                  label="Increasing Value"
+                  fullWidth
+                  required
+                  type="number"
+                  className="mb-3"
+                  variant="outlined"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">L.E</InputAdornment>
+                    ),
+                  }}
+                  name="increased_value"
+                  onChange={onChange}
+                />
+                <TextField
+                  label="Expected Price"
+                  fullWidth
+                  required
+                  type="number"
+                  className="mb-3"
+                  variant="outlined"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">L.E</InputAdornment>
+                    ),
+                  }}
+                  name="expected_price"
+                  onChange={onChange}
+                />
+                <TextField
+                  required
+                  fullWidth
+                  label="Start At"
+                  type="datetime-local"
+                  className="mb-3"
+                  name="start_time"
+                  defaultValue={TimeNow()}
+                  onChange={onChange}
+                />
+                <TextField
+                  required
+                  fullWidth
+                  label="End At"
+                  type="datetime-local"
+                  className="mb-5"
+                  name="end_time"
+                  defaultValue={TimeNow()}
+                  onChange={onChange}
+                />
+                <div className="d-flex justify-content-center">
+                  <button
+                    disabled={loading}
+                    className={`master_button btn btn-lg mb-5`}
+                  >
+                    Create
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Animated>
   );
 };
 

@@ -9,6 +9,8 @@ import { popUpMessage } from "../utils/sweetAlert";
 import style from "./LoginScreen.module.css";
 import TextField from "@material-ui/core/TextField";
 
+import { Animated } from "react-animated-css";
+
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -36,42 +38,48 @@ const LoginScreen = () => {
     }
   }, [userInfo, success, error]);
   return (
-    <div className={`${style.login_form}`}>
-      <div
-        className={`${style.login_form_container} col-sm-10 col-lg-8 col-xl-6`}
-      >
-        <form className='mt-5' autoComplete="on" onSubmit={submitHandler}>
-          <TextField
-            label="Email"
-            fullWidth
-            required
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            variant="outlined"
-            name="email"
-          />
-          <TextField
-            label="Password"
-            fullWidth
-            required
-            type="password"
-            variant="outlined"
-            className="mt-3"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            disabled={loading}
-            className={`master_button btn btn-lg btn-block mt-5`}
-          >
-            Login
-          </button>
-        </form>
-        <div className="mt-3 mb-4">
-          <Link href={"/forget_password"}>Forget Password</Link>
+    <Animated
+      animationIn="bounceInLeft"
+      animationOut="fadeOut"
+      isVisible={true}
+    >
+      <div className={`${style.login_form}`}>
+        <div
+          className={`${style.login_form_container} col-sm-10 col-lg-8 col-xl-6`}
+        >
+          <form className="mt-5" autoComplete="on" onSubmit={submitHandler}>
+            <TextField
+              label="Email"
+              fullWidth
+              required
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              variant="outlined"
+              name="email"
+            />
+            <TextField
+              label="Password"
+              fullWidth
+              required
+              type="password"
+              variant="outlined"
+              className="mt-3"
+              name="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              disabled={loading}
+              className={`master_button btn btn-lg btn-block mt-5`}
+            >
+              Login
+            </button>
+          </form>
+          <div className="mt-3 mb-4">
+            <Link href={"/forget_password"}>Forget Password</Link>
+          </div>
         </div>
       </div>
-    </div>
+    </Animated>
   );
 };
 
