@@ -30,6 +30,7 @@ const Users = () => {
           <div className="container">
             {/* <UsersFilter /> */}
             <div className="col-sm-12 mt-4">
+              <h1 className="display-3 mb-2">Users</h1>
               <Animated
                 animationIn="bounceInLeft"
                 animationOut="fadeOut"

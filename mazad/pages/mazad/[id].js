@@ -13,6 +13,11 @@ const id = () => {
   useEffect(() => {
     if (userInfo === null) {
       router.push("/Login");
+      return;
+    }
+    if (userInfo.role === "merchant" || userInfo.role === "admin") {
+      router.push("/");
+      return;
     }
   }, []);
   return (

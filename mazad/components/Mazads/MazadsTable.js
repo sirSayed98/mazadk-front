@@ -82,12 +82,9 @@ export default function MazadsTable() {
           {Mazads &&
             Mazads.map((row) => (
               <TableRow key={row._id}>
-                <Link href={`/Edit_mazad/${row._id}`}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                </Link>
-
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
                 <TableCell align={"center"}>{row.merchant.email}</TableCell>
                 <TableCell align={"center"}>{row.start_time}</TableCell>
                 <TableCell align={"center"}>{row.end_time}</TableCell>

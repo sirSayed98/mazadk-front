@@ -7,6 +7,7 @@ import {
   JoinMazad,
   InterestMazad,
   HomeUpComingMazads,
+  HomeCurrentMazads,
 } from "../../Redux/actions/mazadActions";
 import { popUpMessage } from "../utils/sweetAlert";
 import { RelativeDate } from "../utils/GetCurrentTime";
@@ -16,6 +17,7 @@ import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import { TimeNow } from "../utils/GetCurrentTime";
 import { Animated } from "react-animated-css";
 
 const MazadCard = ({ data, upComing }) => {
@@ -45,7 +47,7 @@ const MazadCard = ({ data, upComing }) => {
             .catch((err) => {
               popUpMessage("Failed To join", err, "error");
             });
-          dispatch(HomeUpComingMazads());
+          dispatch(HomeCurrentMazads());
         }
       });
     } else {
@@ -53,6 +55,12 @@ const MazadCard = ({ data, upComing }) => {
     }
   };
   const Interest = (id) => {
+    if (TimeNow() > data.start_time) {
+      popUpMessage("Failed", "mazad has started ! check auctions now", "error");
+      dispatch(HomeUpComingMazads());
+      dispatch(HomeCurrentMazads());
+      return;
+    }
     if (userInfo !== undefined && userInfo !== null) {
       setLoading(true);
       dispatch(InterestMazad(data._id))
@@ -68,6 +76,7 @@ const MazadCard = ({ data, upComing }) => {
           popUpMessage("Failed", err, "error");
           setLoading(false);
         });
+      dispatch(HomeUpComingMazads());
     } else {
       router.push("/Login");
     }

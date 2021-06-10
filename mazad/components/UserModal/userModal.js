@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { EditUser } from "../../Redux/actions/userAction";
 
 import "react-responsive-modal/styles.css";
 import TextField from "@material-ui/core/TextField";
 import { Modal } from "react-responsive-modal";
-
-import { FILTER_USERS_TYPE } from "../../Redux/constants/userCosntants/types";
-
-import Cookies from "js-cookie";
 
 const userModal = (props) => {
   const [state, setState] = useState(false);
@@ -17,7 +13,7 @@ const userModal = (props) => {
     name: "",
     phone: "",
     address: "",
-    role:"",
+    role: "",
     email: "",
   });
 
@@ -34,12 +30,13 @@ const userModal = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(EditUser(user, props.user._id)).then((el) => {
-      dispatch({
-        type: FILTER_USERS_TYPE,
-        payload: Cookies.get("filter"),
-      });
-    });
+    dispatch(EditUser(user, props.user._id));
+    if (document) {
+      var els = document.getElementsByClassName(
+        "react-responsive-modal-closeButton"
+      );
+      if (els[0]) els[0].click();
+    }
   };
 
   return (
