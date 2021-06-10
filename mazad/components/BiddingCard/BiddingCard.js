@@ -9,12 +9,21 @@ import style from "./BiddingCard.module.css";
 import { TimeNow } from "../utils/GetCurrentTime";
 import { Animated } from "react-animated-css";
 
+
 const BiddingCard = ({ id }) => {
   const dispatch = useDispatch();
   const { singleMazad: Mazad } = useSelector((state) => state.Mazad);
 
   const [loading, setLoading] = useState(false);
+
+
   const bid = (id) => {
+    if (TimeNow() > Mazad.end_time) {
+      popUpMessage("Failed", "Mazad has ended!", "error");
+      dispatch(GetSingleMazad(id));
+      return;
+    }
+
     setLoading(true);
 
     dispatch(BidNow(id, Mazad.current_price + Mazad.increased_value))
