@@ -63,9 +63,9 @@ $ npm run dev
 
 
 ## Upcoming Features
-- [] Socket  Using 
-- [] Payment System 
-- [] Premium (Users - Merchants) 
+- [ ] Socket  Using 
+- [ ] Payment System 
+- [ ] Premium (Users - Merchants) 
 
 
 ## Screenshots
@@ -87,10 +87,7 @@ $ npm run dev
 
 ![Animation](https://user-images.githubusercontent.com/47485363/121594008-cf516a80-ca3c-11eb-813d-4a48cbc99588.gif)
 
-<h2 align="center">Edit Mazad</h2>
 
-
-![Image 2](https://user-images.githubusercontent.com/47485363/121594030-d5dfe200-ca3c-11eb-8ddb-e8e99ce7400d.png)
 
 <h2 align="center">Display Mazad</h2>
 
