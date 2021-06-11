@@ -56,7 +56,6 @@ $ npm run dev
 - [x] Bidding
 - [x] Make Interested Auction List
 - [x] Display Platform Statistics
-- [x] Display User (winning - subscribed - Interested )
 - [x] Display User (winning - subscribed - Interested ) List
 - [x] Approve Or Reject Merchant Request
 - [x] Display Platform Statistics
